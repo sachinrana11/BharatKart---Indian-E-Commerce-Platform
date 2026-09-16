@@ -1,0 +1,6 @@
+{
+  "name": "BharatKart - Indian E-Commerce Platform",
+  "description": "Production-ready full-stack Indian e-commerce platform with UPI & Razorpay payments, real dynamic document database, catalog, cart & checkout, order tracking, inventory, coupons, and comprehensive admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
