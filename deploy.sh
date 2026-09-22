@@ -7,7 +7,7 @@ echo "🚀 Starting deployment..."
 cd /var/www/BharatKart---Indian-E-Commerce-Platform
 
 echo "📥 Pulling latest code...."
-git pull origin main
+git pull origin prod
 
 echo "📦 Installing dependencies..."
 npm install
