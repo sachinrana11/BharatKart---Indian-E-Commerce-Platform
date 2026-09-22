@@ -18,6 +18,7 @@ import { useToast } from '../context/ToastContext.js';
 import { Address } from '../types.js';
 import { UpiPaymentModal } from '../components/UpiPaymentModal.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { ordersApi, userApi, checkoutApi, paymentsApi, ApiError } from '../services/api.js';
 
 interface CheckoutPageProps {
   onNavigate: (view: string, params?: any) => void;
@@ -60,13 +61,10 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onNavigate }) => {
   const loadAddresses = async () => {
     if (!token) return;
     try {
-      const res = await fetch('/api/user/addresses', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-        setAddresses(json.data);
-        const def = json.data.find((a: Address) => a.isDefault) || json.data[0];
+      const data = await userApi.getAddresses();
+      if (Array.isArray(data) && data.length > 0) {
+        setAddresses(data);
+        const def = data.find((a: Address) => a.isDefault) || data[0];
         setSelectedAddressId(def._id);
       } else {
         setShowNewAddressForm(true);
@@ -86,17 +84,12 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onNavigate }) => {
     setNewAddress(prev => ({ ...prev, pincode: pin }));
     if (pin.length === 6 && !isNaN(Number(pin))) {
       try {
-        const res = await fetch('/api/checkout/pincode', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pincode: pin }),
-        });
-        const json = await res.json();
-        if (json.success && json.data) {
+        const info = await checkoutApi.checkPincode(pin);
+        if (info && info.city && info.state) {
           setNewAddress(prev => ({
             ...prev,
-            city: json.data.city,
-            state: json.data.state,
+            city: info.city,
+            state: info.state,
           }));
         }
       } catch (e) {
@@ -113,25 +106,16 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onNavigate }) => {
     }
 
     try {
-      const res = await fetch('/api/user/addresses', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newAddress),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setAddresses(prev => [json.data, ...prev]);
-        setSelectedAddressId(json.data._id);
+      const savedAddress = await userApi.addAddress(newAddress);
+      if (savedAddress) {
+        setAddresses(prev => [savedAddress, ...prev]);
+        setSelectedAddressId(savedAddress._id);
         setShowNewAddressForm(false);
         showToast('Address saved successfully!', 'success');
-      } else {
-        showToast(json.error || 'Failed to save address', 'error');
       }
     } catch (err: any) {
-      showToast(err.message || 'Error saving address', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Error saving address';
+      showToast(message, 'error');
     }
   };
 
@@ -158,60 +142,43 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ onNavigate }) => {
 
     setPlacingOrder(true);
     try {
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          shippingAddress: activeAddress,
-          items: cart.items,
-          couponCode: cart.couponCode,
-          deliverySpeed,
-          paymentMethod,
-        }),
+      const order = await ordersApi.createOrder({
+        shippingAddress: activeAddress,
+        items: cart.items,
+        couponCode: cart.couponCode,
+        deliverySpeed,
+        paymentMethod,
       });
 
-      const json = await res.json();
-      if (json.success && json.data) {
-        setCreatedOrder(json.data);
+      if (order && order._id) {
+        setCreatedOrder(order);
 
         if (paymentMethod === 'COD') {
           showToast('Order confirmed with Cash on Delivery!', 'success');
           await clearCart();
-          onNavigate('order-success', { orderId: json.data._id, orderNumber: json.data.orderNumber });
+          onNavigate('order-success', { orderId: order._id, orderNumber: order.orderNumber });
         } else if (paymentMethod === 'UPI_QR') {
           // Open dynamic UPI modal
           setUpiModalOpen(true);
         } else {
           // Cards / Net Banking simulated gateway
           // Trigger backend verification directly
-          const verifyRes = await fetch('/api/payments/verify', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              paymentId: `PAY-GATEWAY-${Date.now()}`,
-              orderId: json.data._id,
-              simulateSuccess: true,
-            }),
+          const verifyResult = await paymentsApi.verifyPayment({
+            paymentId: `PAY-GATEWAY-${Date.now()}`,
+            orderId: order._id,
           });
-          const verifyJson = await verifyRes.json();
-          if (verifyJson.success) {
+
+          if (verifyResult) {
             await clearCart();
-            onNavigate('order-success', { orderId: json.data._id, orderNumber: json.data.orderNumber });
+            onNavigate('order-success', { orderId: order._id, orderNumber: order.orderNumber });
           } else {
             showToast('Card / Netbanking transaction could not be verified', 'error');
           }
         }
-      } else {
-        showToast(json.error || 'Failed to place order. Check product stock.', 'error');
       }
     } catch (err: any) {
-      showToast(err.message || 'Error processing checkout', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Error processing checkout';
+      showToast(message, 'error');
     } finally {
       setPlacingOrder(false);
     }

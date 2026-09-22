@@ -12,6 +12,7 @@ import {
 import { Order } from '../types.js';
 import { useAuth } from '../context/AuthContext.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { ordersApi } from '../services/api.js';
 
 interface PaymentSuccessPageProps {
   orderId?: string;
@@ -37,12 +38,9 @@ export const PaymentSuccessPage: React.FC<PaymentSuccessPageProps> = ({
       }
 
       try {
-        const res = await fetch(`/api/orders/${targetId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const json = await res.json();
-        if (json.success && json.data) {
-          setOrder(json.data);
+        const data = await ordersApi.getOrderById(targetId);
+        if (data) {
+          setOrder(data);
         }
       } catch (err) {
         console.error('Error fetching order for success page:', err);

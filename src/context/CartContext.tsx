@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Cart, CartItem } from '../types.js';
 import { useAuth } from './AuthContext.js';
 import { useToast } from './ToastContext.js';
+import { cartApi, ApiError } from '../services/api.js';
 
 interface CartContextType {
   cart: Cart | null;
@@ -24,30 +25,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { token, user } = useAuth();
   const { showToast } = useToast();
 
-  const getHeaders = () => {
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-    const storedSession = localStorage.getItem('bharatkart_session_id');
-    if (storedSession) {
-      headers['x-session-id'] = storedSession;
-    } else {
-      const newSession = 'sess_' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('bharatkart_session_id', newSession);
-      headers['x-session-id'] = newSession;
-    }
-    return headers;
-  };
-
   const refreshCart = async () => {
     try {
-      const res = await fetch('/api/cart', { headers: getHeaders() });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setCart(json.data);
+      const data = await cartApi.getCart();
+      if (data) {
+        setCart(data);
       }
     } catch (err) {
       console.error('Failed to fetch cart:', err);
@@ -61,22 +43,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const addToCart = async (productId: string, quantity: number = 1, selectedVariant?: any): Promise<boolean> => {
     setLoading(true);
     try {
-      const res = await fetch('/api/cart/items', {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({ productId, quantity, selectedVariant }),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setCart(json.data);
+      const updatedCart = await cartApi.addToCart(productId, quantity, selectedVariant);
+      if (updatedCart) {
+        setCart(updatedCart);
         showToast('Item added to your shopping cart!', 'success');
         return true;
-      } else {
-        showToast(json.error || 'Failed to add item to cart', 'error');
-        return false;
       }
+      return false;
     } catch (err: any) {
-      showToast(err.message || 'Cart error', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Failed to add item to cart';
+      showToast(message, 'error');
       return false;
     } finally {
       setLoading(false);
@@ -85,46 +61,33 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateQuantity = async (productId: string, quantity: number, variantKey?: string) => {
     try {
-      const res = await fetch(`/api/cart/items/${productId}`, {
-        method: 'PUT',
-        headers: getHeaders(),
-        body: JSON.stringify({ quantity, variantKey }),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setCart(json.data);
-      } else {
-        showToast(json.error || 'Failed to update quantity', 'error');
+      const updatedCart = await cartApi.updateQuantity(productId, quantity, variantKey);
+      if (updatedCart) {
+        setCart(updatedCart);
       }
-    } catch (err) {
-      console.error('Error updating quantity:', err);
+    } catch (err: any) {
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Failed to update quantity';
+      showToast(message, 'error');
     }
   };
 
   const removeFromCart = async (productId: string, variantKey?: string) => {
     try {
-      const url = `/api/cart/items/${productId}${variantKey ? `?variantKey=${encodeURIComponent(variantKey)}` : ''}`;
-      const res = await fetch(url, {
-        method: 'DELETE',
-        headers: getHeaders(),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setCart(json.data);
+      const updatedCart = await cartApi.removeFromCart(productId, variantKey);
+      if (updatedCart) {
+        setCart(updatedCart);
         showToast('Item removed from cart', 'info');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error removing item:', err);
     }
   };
 
   const clearCart = async () => {
     try {
-      await fetch('/api/cart', {
-        method: 'DELETE',
-        headers: getHeaders(),
-      });
+      await cartApi.clearCart();
       setCart({
+        _id: 'cart_' + Date.now(),
         items: [],
         subtotal: 0,
         discount: 0,
@@ -140,35 +103,25 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const applyCoupon = async (code: string): Promise<boolean> => {
     try {
-      const res = await fetch('/api/cart/apply-coupon', {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({ code }),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setCart(json.data);
-        showToast(json.message || `Coupon ${code} applied successfully!`, 'success');
+      const updatedCart = await cartApi.applyCoupon(code);
+      if (updatedCart) {
+        setCart(updatedCart);
+        showToast(`Coupon '${code.toUpperCase()}' applied successfully!`, 'success');
         return true;
-      } else {
-        showToast(json.error || 'Invalid coupon code', 'error');
-        return false;
       }
+      return false;
     } catch (err: any) {
-      showToast(err.message || 'Failed to apply coupon', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Failed to apply coupon';
+      showToast(message, 'error');
       return false;
     }
   };
 
   const removeCoupon = async () => {
     try {
-      const res = await fetch('/api/cart/remove-coupon', {
-        method: 'POST',
-        headers: getHeaders(),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setCart(json.data);
+      const updatedCart = await cartApi.removeCoupon();
+      if (updatedCart) {
+        setCart(updatedCart);
         showToast('Coupon removed', 'info');
       }
     } catch (err) {

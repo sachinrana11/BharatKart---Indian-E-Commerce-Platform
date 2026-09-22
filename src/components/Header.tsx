@@ -21,6 +21,7 @@ import { useCart } from '../context/CartContext.js';
 import { useWishlist } from '../context/WishlistContext.js';
 import { usePincode } from '../context/PincodeContext.js';
 import { UserRole } from '../types.js';
+import { productsApi } from '../services/api.js';
 
 interface HeaderProps {
   onNavigate: (view: string, params?: any) => void;
@@ -49,10 +50,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentView }) => {
 
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/products/autocomplete?q=${encodeURIComponent(searchQuery)}`);
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          setSuggestions(json.data);
+        const list = await productsApi.autocomplete(searchQuery);
+        if (Array.isArray(list)) {
+          setSuggestions(list);
           setShowSuggestions(true);
         }
       } catch (err) {

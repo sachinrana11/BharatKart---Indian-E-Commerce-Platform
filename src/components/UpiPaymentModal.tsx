@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Check, Copy, AlertCircle, ShieldCheck, Smartphone } from 'lucide-react';
 import { useToast } from '../context/ToastContext.js';
 import { useAuth } from '../context/AuthContext.js';
+import { paymentsApi, ApiError } from '../services/api.js';
 
 interface UpiPaymentModalProps {
   isOpen: boolean;
@@ -53,25 +54,16 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
       setLoading(true);
       setError('');
       try {
-        const res = await fetch('/api/payments/create', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            orderId,
-            method: 'UPI_QR',
-          }),
+        const data = await paymentsApi.createPaymentSession({
+          orderId,
+          method: 'UPI_QR',
         });
-        const json = await res.json();
-        if (json.success && json.data) {
-          setPaymentData(json.data);
-        } else {
-          setError(json.error || 'Failed to initialize UPI QR payment');
+        if (data) {
+          setPaymentData(data);
         }
       } catch (err: any) {
-        setError(err.message || 'Payment server unreachable');
+        const message = err instanceof ApiError ? err.userMessage : err.message || 'Payment initialization failed';
+        setError(message);
       } finally {
         setLoading(false);
       }
@@ -101,29 +93,20 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
     setError('');
 
     try {
-      const res = await fetch('/api/payments/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          paymentId: paymentData.paymentId,
-          orderId,
-          transactionRef: `UPI-TXN-${Date.now()}`,
-          simulateSuccess,
-        }),
+      const data = await paymentsApi.verifyPayment({
+        paymentId: paymentData.paymentId,
+        orderId,
+        transactionRef: `UPI-TXN-${Date.now()}`,
+        simulateSuccess,
       });
 
-      const json = await res.json();
-      if (json.success && json.data) {
+      if (data) {
         showToast('Payment verified successfully!', 'success');
-        onSuccess(json.data);
-      } else {
-        setError(json.error || 'Payment not yet detected. Please scan the QR code and approve the transaction.');
+        onSuccess(data);
       }
     } catch (err: any) {
-      setError(err.message || 'Verification failed');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Verification failed';
+      setError(message);
     } finally {
       setVerifying(false);
     }

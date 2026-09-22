@@ -23,6 +23,7 @@ import { useToast } from '../context/ToastContext.js';
 import { useAuth } from '../context/AuthContext.js';
 import { ProductCard } from '../components/ProductCard.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { productsApi, ApiError } from '../services/api.js';
 
 interface ProductDetailPageProps {
   slug: string;
@@ -58,9 +59,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug, onNa
     const fetchDetails = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/products/${slug}`);
-        const json = await res.json();
-        if (json.success && json.data) {
+        const json = await productsApi.getDetails(slug);
+        if (json && json.success && json.data) {
           const prod: Product = json.data;
           setProduct(prod);
           setSelectedImage(prod.images[0] || prod.thumbnail);
@@ -151,29 +151,20 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug, onNa
 
     setSubmittingReview(true);
     try {
-      const res = await fetch(`/api/products/${product._id}/reviews`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('bharatkart_token')}`,
-        },
-        body: JSON.stringify({
-          rating: reviewRating,
-          title: reviewTitle.trim(),
-          comment: reviewComment.trim(),
-        }),
+      const newReview = await productsApi.addReview(product._id, {
+        rating: reviewRating,
+        title: reviewTitle.trim(),
+        comment: reviewComment.trim(),
       });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setReviews(prev => [json.data, ...prev]);
+      if (newReview) {
+        setReviews(prev => [newReview, ...prev]);
         showToast('Thank you! Your review has been submitted.', 'success');
         setReviewTitle('');
         setReviewComment('');
-      } else {
-        showToast(json.error || 'Failed to submit review', 'error');
       }
     } catch (e: any) {
-      showToast(e.message || 'Error submitting review', 'error');
+      const message = e instanceof ApiError ? e.userMessage : e.message || 'Error submitting review';
+      showToast(message, 'error');
     } finally {
       setSubmittingReview(false);
     }

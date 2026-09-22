@@ -16,6 +16,7 @@ import { useAuth } from '../context/AuthContext.js';
 import { useToast } from '../context/ToastContext.js';
 import { Address } from '../types.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { userApi, checkoutApi, ApiError } from '../services/api.js';
 
 interface ProfilePageProps {
   onNavigate: (view: string, params?: any) => void;
@@ -47,12 +48,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
     if (!token) return;
     try {
       setLoading(true);
-      const res = await fetch('/api/user/addresses', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data)) {
-        setAddresses(json.data);
+      const data = await userApi.getAddresses();
+      if (Array.isArray(data)) {
+        setAddresses(data);
       }
     } catch (e) {
       console.error('Failed to load user addresses:', e);
@@ -69,17 +67,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
     setNewAddr(prev => ({ ...prev, pincode: pin }));
     if (pin.length === 6 && !isNaN(Number(pin))) {
       try {
-        const res = await fetch('/api/checkout/pincode', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pincode: pin }),
-        });
-        const json = await res.json();
-        if (json.success && json.data) {
+        const info = await checkoutApi.checkPincode(pin);
+        if (info && info.city && info.state) {
           setNewAddr(prev => ({
             ...prev,
-            city: json.data.city,
-            state: json.data.state,
+            city: info.city,
+            state: info.state,
           }));
         }
       } catch (e) {
@@ -91,41 +84,25 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
   const handleCreateAddress = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/user/addresses', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newAddr),
-      });
-      const json = await res.json();
-      if (json.success) {
-        showToast('Address added successfully', 'success');
-        setShowAddModal(false);
-        fetchAddresses();
-      } else {
-        showToast(json.error || 'Failed to save address', 'error');
-      }
+      await userApi.addAddress(newAddr);
+      showToast('Address added successfully', 'success');
+      setShowAddModal(false);
+      fetchAddresses();
     } catch (err: any) {
-      showToast(err.message || 'Error saving address', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Error saving address';
+      showToast(message, 'error');
     }
   };
 
   const handleDeleteAddress = async (id: string) => {
     if (!confirm('Are you sure you want to delete this address?')) return;
     try {
-      const res = await fetch(`/api/user/addresses/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      if (json.success) {
-        showToast('Address deleted', 'info');
-        setAddresses(prev => prev.filter(a => a._id !== id));
-      }
-    } catch (err) {
-      showToast('Failed to delete address', 'error');
+      await userApi.deleteAddress(id);
+      showToast('Address deleted', 'info');
+      setAddresses(prev => prev.filter(a => a._id !== id));
+    } catch (err: any) {
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Failed to delete address';
+      showToast(message, 'error');
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole } from '../types.js';
+import { authApi, apiClient, setAuthTokenProvider } from '../services/api.js';
 
 interface AuthContextType {
   user: User | null;
@@ -19,52 +20,65 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem('bharatkart_token'));
+  const [token, setToken] = useState<string | null>(() => apiClient.getToken());
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchCurrentUser = async (authToken: string) => {
+  const fetchCurrentUser = async () => {
     try {
-      const res = await fetch('/api/auth/me', {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-      const data = await res.json();
-      if (data.success && data.data) {
-        setUser(data.data);
+      const userData = await authApi.getMe();
+      if (userData) {
+        setUser(userData);
       } else {
-        localStorage.removeItem('bharatkart_token');
+        apiClient.clearToken();
         setToken(null);
         setUser(null);
       }
     } catch (err) {
       console.error('Failed to load user profile:', err);
+      apiClient.clearToken();
+      setToken(null);
+      setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
+  // Synchronize token state with API service request interceptor
   useEffect(() => {
+    setAuthTokenProvider(() => token);
+    return () => {
+      setAuthTokenProvider(null);
+    };
+  }, [token]);
+
+  useEffect(() => {
+    // Listen for unauthorized 401 events dispatched by api interceptor
+    const handleUnauthorized = () => {
+      setToken(null);
+      setUser(null);
+    };
+
+    window.addEventListener('auth-unauthorized', handleUnauthorized);
+
     if (token) {
-      fetchCurrentUser(token);
+      fetchCurrentUser();
     } else {
       // Auto-initialize demo customer if not logged in
       quickDemoLogin('CUSTOMER');
     }
+
+    return () => {
+      window.removeEventListener('auth-unauthorized', handleUnauthorized);
+    };
   }, []);
 
   const login = async (email: string, password: string = 'user123'): Promise<boolean> => {
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setToken(json.data.token);
-        setUser(json.data.user);
-        localStorage.setItem('bharatkart_token', json.data.token);
+      const res = await authApi.login(email, password);
+      if (res && res.token && res.user) {
+        apiClient.setToken(res.token);
+        setToken(res.token);
+        setUser(res.user);
         return true;
       }
       return false;
@@ -76,16 +90,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (name: string, email: string, password: string = 'user123', phone?: string): Promise<boolean> => {
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, phone }),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setToken(json.data.token);
-        setUser(json.data.user);
-        localStorage.setItem('bharatkart_token', json.data.token);
+      const res = await authApi.register({ name, email, password, phone });
+      if (res && res.token && res.user) {
+        apiClient.setToken(res.token);
+        setToken(res.token);
+        setUser(res.user);
         return true;
       }
       return false;
@@ -96,7 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    localStorage.removeItem('bharatkart_token');
+    authApi.logout();
     setToken(null);
     setUser(null);
   };
@@ -115,16 +124,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password: pass }),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setToken(json.data.token);
-        setUser(json.data.user);
-        localStorage.setItem('bharatkart_token', json.data.token);
+      const res = await authApi.login(email, pass);
+      if (res && res.token && res.user) {
+        apiClient.setToken(res.token);
+        setToken(res.token);
+        setUser(res.user);
       }
     } catch (e) {
       console.error('Quick demo login error:', e);

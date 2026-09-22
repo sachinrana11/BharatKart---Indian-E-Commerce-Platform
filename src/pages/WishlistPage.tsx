@@ -5,6 +5,7 @@ import { useWishlist } from '../context/WishlistContext.js';
 import { useCart } from '../context/CartContext.js';
 import { ProductCard } from '../components/ProductCard.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { productsApi } from '../services/api.js';
 
 interface WishlistPageProps {
   onNavigate: (view: string, params?: any) => void;
@@ -20,10 +21,9 @@ export const WishlistPage: React.FC<WishlistPageProps> = ({ onNavigate }) => {
     const fetchWishlistProducts = async () => {
       try {
         setLoading(true);
-        const res = await fetch('/api/products?limit=50');
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          const matching = json.data.filter((p: Product) => wishlistIds.includes(p._id));
+        const data = await productsApi.getAll({ limit: 50 });
+        if (Array.isArray(data)) {
+          const matching = data.filter((p: Product) => wishlistIds.includes(p._id));
           setProducts(matching);
         }
       } catch (e) {

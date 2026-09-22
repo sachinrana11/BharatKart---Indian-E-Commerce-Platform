@@ -15,6 +15,7 @@ import {
 import { Product, Banner, FlashSale } from '../types.js';
 import { ProductCard } from '../components/ProductCard.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { productsApi } from '../services/api.js';
 
 interface HomePageProps {
   onNavigate: (view: string, params?: any) => void;
@@ -54,25 +55,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       try {
         setLoading(true);
         // Load banners & flash sale
-        const [bannersRes, flashRes, productsRes] = await Promise.all([
-          fetch('/api/products/meta/banners'),
-          fetch('/api/products/meta/flash-sale'),
-          fetch('/api/products?limit=20'),
+        const [bannersData, flashData, prodsData] = await Promise.all([
+          productsApi.getBanners(),
+          productsApi.getFlashSale(),
+          productsApi.getAll({ limit: 20 }),
         ]);
 
-        const bannersJson = await bannersRes.json();
-        const flashJson = await flashRes.json();
-        const productsJson = await productsRes.json();
-
-        if (bannersJson.success) setBanners(bannersJson.data);
-        if (flashJson.success && flashJson.data) {
-          setFlashSale(flashJson.data.sale);
-          setFlashProducts(flashJson.data.products || []);
+        if (Array.isArray(bannersData)) setBanners(bannersData);
+        if (flashData) {
+          if (flashData.sale) setFlashSale(flashData.sale);
+          if (Array.isArray(flashData.products)) setFlashProducts(flashData.products);
         }
-        if (productsJson.success && Array.isArray(productsJson.data)) {
-          const prods: Product[] = productsJson.data;
-          setFeaturedProducts(prods.filter(p => p.isFeatured || p.rating >= 4.5).slice(0, 8));
-          setBestSellers(prods.filter(p => p.isBestSeller || p.reviewCount > 1000).slice(0, 8));
+        if (Array.isArray(prodsData)) {
+          setFeaturedProducts(prodsData.filter(p => p.isFeatured || p.rating >= 4.5).slice(0, 8));
+          setBestSellers(prodsData.filter(p => p.isBestSeller || p.reviewCount > 1000).slice(0, 8));
         }
       } catch (err) {
         console.error('Failed to load homepage content:', err);

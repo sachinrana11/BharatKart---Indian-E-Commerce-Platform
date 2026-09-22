@@ -21,6 +21,7 @@ import { useAuth } from '../context/AuthContext.js';
 import { useToast } from '../context/ToastContext.js';
 import { Product, Order, Coupon, FlashSale } from '../types.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { adminApi, ApiError } from '../services/api.js';
 
 interface AdminDashboardPageProps {
   onNavigate: (view: string, params?: any) => void;
@@ -57,26 +58,18 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onNaviga
     try {
       setLoading(true);
       const [mRes, pRes, oRes, cRes, lRes] = await Promise.all([
-        fetch('/api/admin/metrics', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/admin/products?limit=100', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/admin/orders?limit=50', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/admin/coupons', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/admin/audit-logs', { headers: { Authorization: `Bearer ${token}` } }),
+        adminApi.getMetrics(),
+        adminApi.getProducts({ limit: 100 }),
+        adminApi.getOrders({ limit: 50 }),
+        adminApi.getCoupons(),
+        adminApi.getAuditLogs(50),
       ]);
 
-      const [mJson, pJson, oJson, cJson, lJson] = await Promise.all([
-        mRes.json(),
-        pRes.json(),
-        oRes.json(),
-        cRes.json(),
-        lRes.json(),
-      ]);
-
-      if (mJson.success) setMetrics(mJson.data);
-      if (pJson.success && Array.isArray(pJson.data)) setProducts(pJson.data);
-      if (oJson.success && Array.isArray(oJson.data)) setOrders(oJson.data);
-      if (cJson.success && Array.isArray(cJson.data)) setCoupons(cJson.data);
-      if (lJson.success && Array.isArray(lJson.data)) setLogs(lJson.data);
+      if (mRes) setMetrics(mRes);
+      if (Array.isArray(pRes)) setProducts(pRes);
+      if (Array.isArray(oRes)) setOrders(oRes);
+      if (Array.isArray(cRes)) setCoupons(cRes);
+      if (Array.isArray(lRes)) setLogs(lRes);
     } catch (err) {
       console.error('Failed to load admin data:', err);
     } finally {
@@ -94,27 +87,17 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onNaviga
       const courier = newStatus === 'SHIPPED' ? 'BlueDart Air Express' : undefined;
       const tracking = newStatus === 'SHIPPED' ? `BLUEDART-${Math.floor(100000000 + Math.random() * 900000000)}` : undefined;
 
-      const res = await fetch(`/api/admin/orders/${orderId}/status`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          status: newStatus,
-          courierPartner: courier,
-          trackingNumber: tracking,
-        }),
+      const updated = await adminApi.updateOrderStatus(orderId, newStatus, {
+        courierPartner: courier,
+        trackingNumber: tracking,
       });
-      const json = await res.json();
-      if (json.success) {
+      if (updated) {
         showToast(`Order status updated to ${newStatus}`, 'success');
-        setOrders(prev => prev.map(o => (o._id === orderId ? json.data : o)));
-      } else {
-        showToast(json.error || 'Failed to update order status', 'error');
+        setOrders(prev => prev.map(o => (o._id === orderId ? updated : o)));
       }
     } catch (e: any) {
-      showToast(e.message || 'Error updating order', 'error');
+      const message = e instanceof ApiError ? e.userMessage : e.message || 'Error updating order';
+      showToast(message, 'error');
     }
   };
 
@@ -128,32 +111,24 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onNaviga
 
     try {
       const isEdit = !!editingProduct._id;
-      const url = isEdit ? `/api/admin/products/${editingProduct._id}` : '/api/admin/products';
-      const method = isEdit ? 'PUT' : 'POST';
+      const productPayload = {
+        ...editingProduct,
+        images: editingProduct.images || [editingProduct.thumbnail || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'],
+      };
 
-      const res = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          ...editingProduct,
-          images: editingProduct.images || [editingProduct.thumbnail || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'],
-        }),
-      });
-
-      const json = await res.json();
-      if (json.success) {
-        showToast(isEdit ? 'Product updated' : 'Product created', 'success');
-        setShowProductModal(false);
-        setEditingProduct(null);
-        fetchAdminData();
+      if (isEdit && editingProduct._id) {
+        await adminApi.updateProduct(editingProduct._id, productPayload);
       } else {
-        showToast(json.error || 'Failed to save product', 'error');
+        await adminApi.createProduct(productPayload);
       }
+
+      showToast(isEdit ? 'Product updated' : 'Product created', 'success');
+      setShowProductModal(false);
+      setEditingProduct(null);
+      fetchAdminData();
     } catch (err: any) {
-      showToast(err.message || 'Error saving product', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Error saving product';
+      showToast(message, 'error');
     }
   };
 
@@ -163,24 +138,15 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onNaviga
     if (!newCoupon.code.trim()) return;
 
     try {
-      const res = await fetch('/api/admin/coupons', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newCoupon),
-      });
-      const json = await res.json();
-      if (json.success) {
+      const created = await adminApi.createCoupon(newCoupon);
+      if (created) {
         showToast(`Coupon ${newCoupon.code} created!`, 'success');
         setShowCouponModal(false);
-        setCoupons(prev => [json.data, ...prev]);
-      } else {
-        showToast(json.error || 'Failed to create coupon', 'error');
+        setCoupons(prev => [created, ...prev]);
       }
     } catch (err: any) {
-      showToast(err.message || 'Error creating coupon', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Error creating coupon';
+      showToast(message, 'error');
     }
   };
 

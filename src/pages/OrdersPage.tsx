@@ -12,6 +12,7 @@ import {
 import { Order } from '../types.js';
 import { useAuth } from '../context/AuthContext.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { ordersApi } from '../services/api.js';
 
 interface OrdersPageProps {
   onNavigate: (view: string, params?: any) => void;
@@ -31,12 +32,9 @@ export const OrdersPage: React.FC<OrdersPageProps> = ({ onNavigate }) => {
         return;
       }
       try {
-        const res = await fetch('/api/orders/user/my-orders', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          setOrders(json.data);
+        const data = await ordersApi.getOrders();
+        if (Array.isArray(data)) {
+          setOrders(data);
         }
       } catch (err) {
         console.error('Failed to load user orders:', err);

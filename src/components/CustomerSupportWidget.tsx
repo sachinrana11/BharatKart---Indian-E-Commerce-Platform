@@ -22,6 +22,7 @@ import {
 import { useAuth } from '../context/AuthContext.js';
 import { useToast } from '../context/ToastContext.js';
 import { SupportTicket, SupportMessage, Order, TicketCategory } from '../types.js';
+import { supportApi, ordersApi, ApiError } from '../services/api.js';
 
 interface CustomerSupportWidgetProps {
   onNavigate?: (view: string, params?: any) => void;
@@ -60,12 +61,9 @@ export const CustomerSupportWidget: React.FC<CustomerSupportWidgetProps> = ({ on
     if (!token) return;
     try {
       setLoadingTickets(true);
-      const res = await fetch('/api/support/tickets', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data)) {
-        setTickets(json.data);
+      const data = await supportApi.getTickets();
+      if (Array.isArray(data)) {
+        setTickets(data);
       }
     } catch (err) {
       console.error('Failed to load tickets:', err);
@@ -78,12 +76,9 @@ export const CustomerSupportWidget: React.FC<CustomerSupportWidgetProps> = ({ on
   const fetchUserOrders = async () => {
     if (!token) return;
     try {
-      const res = await fetch('/api/orders', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data)) {
-        setUserOrders(json.data);
+      const data = await ordersApi.getOrders();
+      if (Array.isArray(data)) {
+        setUserOrders(data);
       }
     } catch (err) {
       console.error('Failed to load user orders:', err);
@@ -93,10 +88,9 @@ export const CustomerSupportWidget: React.FC<CustomerSupportWidgetProps> = ({ on
   // Fetch FAQs
   const fetchFaqs = async () => {
     try {
-      const res = await fetch('/api/support/faqs');
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data)) {
-        setFaqs(json.data);
+      const data = await supportApi.getFaqs();
+      if (Array.isArray(data)) {
+        setFaqs(data);
       }
     } catch (err) {
       console.error('Failed to load FAQs:', err);
@@ -148,34 +142,25 @@ export const CustomerSupportWidget: React.FC<CustomerSupportWidgetProps> = ({ on
 
     try {
       setSubmittingTicket(true);
-      const res = await fetch('/api/support/tickets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          subject: newSubject.trim(),
-          category: newCategory,
-          orderId: selectedOrderId || undefined,
-          message: initialMessage.trim(),
-        }),
+      const ticket = await supportApi.createTicket({
+        subject: newSubject.trim(),
+        category: newCategory,
+        orderId: selectedOrderId || undefined,
+        message: initialMessage.trim(),
       });
 
-      const json = await res.json();
-      if (json.success) {
+      if (ticket) {
         showToast('Support ticket logged. Connected to care executive!', 'success');
-        setTickets(prev => [json.data, ...prev]);
-        setSelectedTicket(json.data);
+        setTickets(prev => [ticket, ...prev]);
+        setSelectedTicket(ticket);
         setIsCreatingTicket(false);
         setNewSubject('');
         setInitialMessage('');
         setSelectedOrderId('');
-      } else {
-        showToast(json.error || 'Failed to submit ticket', 'error');
       }
     } catch (err: any) {
-      showToast(err.message || 'Error submitting ticket', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Error submitting ticket';
+      showToast(message, 'error');
     } finally {
       setSubmittingTicket(false);
     }
@@ -191,24 +176,15 @@ export const CustomerSupportWidget: React.FC<CustomerSupportWidgetProps> = ({ on
 
     try {
       setSendingMessage(true);
-      const res = await fetch(`/api/support/tickets/${selectedTicket._id}/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ text: userText }),
-      });
+      const updatedTicket = await supportApi.sendMessage(selectedTicket._id, userText);
 
-      const json = await res.json();
-      if (json.success && json.data) {
-        setSelectedTicket(json.data);
-        setTickets(prev => prev.map(t => (t._id === json.data._id ? json.data : t)));
-      } else {
-        showToast(json.error || 'Failed to send message', 'error');
+      if (updatedTicket) {
+        setSelectedTicket(updatedTicket);
+        setTickets(prev => prev.map(t => (t._id === updatedTicket._id ? updatedTicket : t)));
       }
     } catch (err: any) {
-      showToast(err.message || 'Error sending message', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Error sending message';
+      showToast(message, 'error');
     } finally {
       setSendingMessage(false);
     }
@@ -217,22 +193,15 @@ export const CustomerSupportWidget: React.FC<CustomerSupportWidgetProps> = ({ on
   // Handle Close / Resolve Ticket
   const handleUpdateStatus = async (ticketId: string, status: 'RESOLVED' | 'CLOSED') => {
     try {
-      const res = await fetch(`/api/support/tickets/${ticketId}/status`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status }),
-      });
-      const json = await res.json();
-      if (json.success) {
+      const updatedTicket = await supportApi.updateTicketStatus(ticketId, status);
+      if (updatedTicket) {
         showToast(`Ticket marked as ${status.toLowerCase()}`, 'success');
-        setSelectedTicket(json.data);
-        setTickets(prev => prev.map(t => (t._id === ticketId ? json.data : t)));
+        setSelectedTicket(updatedTicket);
+        setTickets(prev => prev.map(t => (t._id === ticketId ? updatedTicket : t)));
       }
     } catch (err: any) {
-      showToast(err.message || 'Failed to update ticket status', 'error');
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Failed to update ticket status';
+      showToast(message, 'error');
     }
   };
 

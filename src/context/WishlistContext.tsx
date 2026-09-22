@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product } from '../types.js';
 import { useAuth } from './AuthContext.js';
 import { useToast } from './ToastContext.js';
+import { userApi, ApiError } from '../services/api.js';
 
 interface WishlistContextType {
   wishlistIds: string[];
@@ -30,13 +31,10 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     try {
       setLoading(true);
-      const res = await fetch('/api/user/wishlist', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      if (json.success && Array.isArray(json.data)) {
-        setWishlistItems(json.data);
-        setWishlistIds(json.data.map((p: Product) => p._id));
+      const items = await userApi.getWishlist();
+      if (Array.isArray(items)) {
+        setWishlistItems(items);
+        setWishlistIds(items.map((p: Product) => p._id));
       }
     } catch (err) {
       console.error('Failed to load wishlist:', err);
@@ -56,17 +54,9 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
 
     try {
-      const res = await fetch('/api/user/wishlist/toggle', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ productId }),
-      });
-      const json = await res.json();
-      if (json.success) {
-        if (json.inWishlist) {
+      const res = await userApi.toggleWishlist(productId);
+      if (res && res.inWishlist !== undefined) {
+        if (res.inWishlist) {
           setWishlistIds(prev => [...prev, productId]);
           showToast('Added to your Wishlist!', 'success');
         } else {
@@ -76,8 +66,9 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         }
         refreshWishlist();
       }
-    } catch (err) {
-      console.error('Wishlist toggle error:', err);
+    } catch (err: any) {
+      const message = err instanceof ApiError ? err.userMessage : err.message || 'Wishlist error';
+      showToast(message, 'error');
     }
   };
 

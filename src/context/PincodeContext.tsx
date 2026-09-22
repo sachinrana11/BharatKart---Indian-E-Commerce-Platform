@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PincodeDeliveryInfo } from '../types.js';
+import { checkoutApi } from '../services/api.js';
 
 interface PincodeContextType {
   pincode: string;
@@ -30,14 +31,9 @@ export const PincodeProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const checkPin = async (pin: string): Promise<boolean> => {
     try {
-      const res = await fetch('/api/checkout/pincode', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pincode: pin, orderTotal: 999 }),
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setDeliveryInfo(json.data);
+      const data = await checkoutApi.checkPincode(pin, 999);
+      if (data) {
+        setDeliveryInfo(data);
         setPincode(pin);
         localStorage.setItem('bharatkart_pincode', pin);
         return true;

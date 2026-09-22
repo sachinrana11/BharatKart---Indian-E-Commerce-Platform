@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -31,6 +31,51 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const removeToast = (id: string) => {
     setToasts(prev => prev.filter(t => t.id !== id));
   };
+
+  // Standardized error event listeners from ApiClient
+  useEffect(() => {
+    const handleApiRateLimited = (e: any) => {
+      showToast(e.detail?.message || 'Request limit reached. Please wait a moment.', 'warning');
+    };
+    const handleAuthUnauthorized = (e: any) => {
+      showToast(e.detail?.message || 'Your session has expired. Please sign in again.', 'warning');
+    };
+    const handleForbidden = (e: any) => {
+      showToast(e.detail?.message || 'Access denied: You do not have permission to perform this action.', 'error');
+    };
+    const handleServerError = (e: any) => {
+      showToast(e.detail?.message || 'Internal server error encountered. Our team has been notified.', 'error');
+    };
+    const handleNetworkError = (e: any) => {
+      showToast(e.detail?.userMessage || e.detail?.message || 'Network error. Please check your internet connection.', 'error');
+    };
+    const handleGlobalNotification = (e: any) => {
+      // If specialized handlers already handle 401, 403, 500, skip duplicate display
+      const status = e.detail?.status;
+      if (status === 401 || status === 403 || (status && status >= 500)) {
+        return;
+      }
+      if (e.detail?.message) {
+        showToast(e.detail.message, e.detail.type || 'info');
+      }
+    };
+
+    window.addEventListener('api-rate-limited', handleApiRateLimited);
+    window.addEventListener('auth-unauthorized', handleAuthUnauthorized);
+    window.addEventListener('api-forbidden', handleForbidden);
+    window.addEventListener('api-server-error', handleServerError);
+    window.addEventListener('api-network-error', handleNetworkError);
+    window.addEventListener('api-notification', handleGlobalNotification);
+
+    return () => {
+      window.removeEventListener('api-rate-limited', handleApiRateLimited);
+      window.removeEventListener('auth-unauthorized', handleAuthUnauthorized);
+      window.removeEventListener('api-forbidden', handleForbidden);
+      window.removeEventListener('api-server-error', handleServerError);
+      window.removeEventListener('api-network-error', handleNetworkError);
+      window.removeEventListener('api-notification', handleGlobalNotification);
+    };
+  }, []);
 
   return (
     <ToastContext.Provider value={{ toasts, showToast, removeToast }}>

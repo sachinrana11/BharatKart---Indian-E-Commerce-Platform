@@ -14,6 +14,8 @@ import userRoutes from './server/routes/userRoutes.js';
 import adminRoutes from './server/routes/adminRoutes.js';
 import seoRoutes from './server/routes/seoRoutes.js';
 import supportRoutes from './server/routes/supportRoutes.js';
+import { globalLimiter, authLimiter, orderLimiter } from './server/middleware/rateLimit.js';
+import { sanitizeInputs } from './server/middleware/sanitize.js';
 
 async function startServer() {
   const app = express();
@@ -30,13 +32,20 @@ async function startServer() {
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-  // Basic security and CORS headers
+  // Security Headers
   app.use((req, res, next) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
     res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     next();
   });
+
+  // Input Sanitization
+  app.use(sanitizeInputs);
+
+  // Global Traffic Rate Limiting on API endpoints
+  app.use('/api', globalLimiter);
 
   // Global token authentication
   app.use(authenticateToken);
@@ -49,11 +58,11 @@ async function startServer() {
     res.json({ status: 'ok', platform: 'BharatKart Indian E-Commerce', timestamp: new Date().toISOString() });
   });
 
-  // API Routes
-  app.use('/api/auth', authRoutes);
+  // API Routes with targeted security limiters
+  app.use('/api/auth', authLimiter, authRoutes);
   app.use('/api/products', productRoutes);
   app.use('/api/cart', cartRoutes);
-  app.use('/api/checkout', checkoutRoutes);
+  app.use('/api/checkout', orderLimiter, checkoutRoutes);
   app.use('/api/orders', orderRoutes);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/user', userRoutes);

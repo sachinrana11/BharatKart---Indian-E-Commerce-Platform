@@ -18,6 +18,7 @@ import { useAuth } from '../context/AuthContext.js';
 import { useToast } from '../context/ToastContext.js';
 import { OrderTimeline } from '../components/OrderTimeline.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { ordersApi, ApiError } from '../services/api.js';
 
 interface OrderDetailPageProps {
   orderId: string;
@@ -34,12 +35,9 @@ export const OrderDetailPage: React.FC<OrderDetailPageProps> = ({ orderId, onNav
   const fetchOrder = async () => {
     if (!token || !orderId) return;
     try {
-      const res = await fetch(`/api/orders/${orderId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const json = await res.json();
-      if (json.success && json.data) {
-        setOrder(json.data);
+      const data = await ordersApi.getOrderById(orderId);
+      if (data) {
+        setOrder(data);
       }
     } catch (err) {
       console.error('Failed to load order details:', err);
@@ -58,23 +56,12 @@ export const OrderDetailPage: React.FC<OrderDetailPageProps> = ({ orderId, onNav
 
     setActionLoading(true);
     try {
-      const res = await fetch(`/api/orders/${orderId}/cancel`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ reason }),
-      });
-      const json = await res.json();
-      if (json.success) {
-        showToast('Order cancelled successfully. Refund initiated if prepaid.', 'info');
-        await fetchOrder();
-      } else {
-        showToast(json.error || 'Failed to cancel order', 'error');
-      }
+      await ordersApi.cancelOrder(orderId, reason);
+      showToast('Order cancelled successfully. Refund initiated if prepaid.', 'info');
+      await fetchOrder();
     } catch (e: any) {
-      showToast(e.message || 'Error cancelling order', 'error');
+      const message = e instanceof ApiError ? e.userMessage : e.message || 'Error cancelling order';
+      showToast(message, 'error');
     } finally {
       setActionLoading(false);
     }
@@ -86,23 +73,12 @@ export const OrderDetailPage: React.FC<OrderDetailPageProps> = ({ orderId, onNav
 
     setActionLoading(true);
     try {
-      const res = await fetch(`/api/orders/${orderId}/return`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ reason }),
-      });
-      const json = await res.json();
-      if (json.success) {
-        showToast('Doorstep return request accepted. Courier executive assigned for pickup.', 'success');
-        await fetchOrder();
-      } else {
-        showToast(json.error || 'Failed to initiate return', 'error');
-      }
+      await ordersApi.requestReturn(orderId, reason);
+      showToast('Doorstep return request accepted. Courier executive assigned for pickup.', 'success');
+      await fetchOrder();
     } catch (e: any) {
-      showToast(e.message || 'Error requesting return', 'error');
+      const message = e instanceof ApiError ? e.userMessage : e.message || 'Error requesting return';
+      showToast(message, 'error');
     } finally {
       setActionLoading(false);
     }

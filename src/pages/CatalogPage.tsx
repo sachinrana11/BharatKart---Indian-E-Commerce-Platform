@@ -13,6 +13,7 @@ import {
 import { Product, Category, Brand } from '../types.js';
 import { ProductCard } from '../components/ProductCard.js';
 import { SEOHead } from '../components/SEOHead.js';
+import { productsApi } from '../services/api.js';
 
 interface CatalogPageProps {
   initialQuery?: string;
@@ -57,14 +58,12 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
   useEffect(() => {
     const fetchMeta = async () => {
       try {
-        const [catRes, brandRes] = await Promise.all([
-          fetch('/api/products/meta/categories'),
-          fetch('/api/products/meta/brands'),
+        const [cats, brs] = await Promise.all([
+          productsApi.getCategories(),
+          productsApi.getBrands(),
         ]);
-        const catJson = await catRes.json();
-        const brandJson = await brandRes.json();
-        if (catJson.success) setCategories(catJson.data);
-        if (brandJson.success) setBrands(brandJson.data);
+        if (Array.isArray(cats)) setCategories(cats);
+        if (Array.isArray(brs)) setBrands(brs);
       } catch (e) {
         console.error('Failed to load filter metadata:', e);
       }
@@ -82,27 +81,27 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
   const fetchFilteredProducts = async () => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      if (search) params.append('q', search);
-      if (selectedCategory) params.append('category', selectedCategory);
-      if (selectedBrand) params.append('brand', selectedBrand);
-      if (minPrice !== '') params.append('minPrice', minPrice.toString());
-      if (maxPrice !== '') params.append('maxPrice', maxPrice.toString());
-      if (minRating > 0) params.append('minRating', minRating.toString());
-      if (inStockOnly) params.append('inStock', 'true');
-      if (codOnly) params.append('codOnly', 'true');
-      if (initialFeatured) params.append('isFeatured', 'true');
-      if (initialBestSeller) params.append('isBestSeller', 'true');
-      if (sort) params.append('sort', sort);
-      params.append('page', page.toString());
-      params.append('limit', '12');
+      const queryParams: Record<string, any> = {
+        page,
+        limit: 12,
+      };
+      if (search) queryParams.q = search;
+      if (selectedCategory) queryParams.category = selectedCategory;
+      if (selectedBrand) queryParams.brand = selectedBrand;
+      if (minPrice !== '') queryParams.minPrice = minPrice;
+      if (maxPrice !== '') queryParams.maxPrice = maxPrice;
+      if (minRating > 0) queryParams.minRating = minRating;
+      if (inStockOnly) queryParams.inStock = 'true';
+      if (codOnly) queryParams.codOnly = 'true';
+      if (initialFeatured) queryParams.isFeatured = 'true';
+      if (initialBestSeller) queryParams.isBestSeller = 'true';
+      if (sort) queryParams.sort = sort;
 
-      const res = await fetch(`/api/products?${params.toString()}`);
-      const json = await res.json();
-      if (json.success) {
-        setProducts(json.data);
-        setTotal(json.total || 0);
-        setPages(json.pages || 1);
+      const res = await productsApi.queryCatalog(queryParams);
+      if (res && res.success) {
+        setProducts(res.data);
+        setTotal(res.total || 0);
+        setPages(res.pages || 1);
       }
     } catch (err) {
       console.error('Error fetching catalog:', err);

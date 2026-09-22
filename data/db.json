@@ -1,0 +1,1795 @@
+{
+  "users": [
+    {
+      "_id": "usr_rahul_01",
+      "name": "Rahul Sharma",
+      "email": "rahul.sharma@example.com",
+      "phone": "+91 98765 43210",
+      "passwordHash": "$2b$08$4c/jli210rHlBP/YPIRW0OELJADAmfjGnEn5vOqcWZniSv/Fu.592",
+      "role": "CUSTOMER",
+      "isEmailVerified": true,
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "usr_priya_02",
+      "name": "Priya Patel",
+      "email": "priya.patel@example.com",
+      "phone": "+91 98234 56789",
+      "passwordHash": "$2b$08$4c/jli210rHlBP/YPIRW0OELJADAmfjGnEn5vOqcWZniSv/Fu.592",
+      "role": "CUSTOMER",
+      "isEmailVerified": true,
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "usr_admin_01",
+      "name": "Ananya Verma (Store Manager)",
+      "email": "admin@bharatkart.in",
+      "phone": "+91 91234 56780",
+      "passwordHash": "$2b$08$EUKlUJs72zVSC96owSrcUOlMrC4DHVC9f3F2bZ14MOEXqMXzpXCMK",
+      "role": "ADMIN",
+      "isEmailVerified": true,
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "usr_super_01",
+      "name": "Vikramaditya Rao (Founder & SuperAdmin)",
+      "email": "superadmin@bharatkart.in",
+      "phone": "+91 99999 88888",
+      "passwordHash": "$2b$08$eU1iflBvsXZy0895KWpqguKxYgAPnHvE7eeGgxZDpuHi9VY2G9KD6",
+      "role": "SUPER_ADMIN",
+      "isEmailVerified": true,
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    }
+  ],
+  "support_tickets": [
+    {
+      "_id": "tkt_seed_01",
+      "ticketNumber": "TKT-9182",
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "userEmail": "rahul.sharma@example.com",
+      "orderId": "ord_sample_984712",
+      "orderNumber": "BK-2026-984712",
+      "subject": "Estimated delivery slot for today's BlueDart parcel",
+      "category": "ORDER_STATUS",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "messages": [
+        {
+          "id": "msg_seed_01",
+          "sender": "USER",
+          "senderName": "Rahul Sharma",
+          "text": "Namaste, my order shows Out for Delivery by BlueDart executive Santosh. Will it arrive before 5:00 PM today at Fort, Mumbai?",
+          "timestamp": "2026-09-16T08:40:16.909Z",
+          "orderContext": {
+            "orderNumber": "BK-2026-984712",
+            "status": "OUT_FOR_DELIVERY",
+            "totalAmount": 2399,
+            "trackingNumber": "BLUEDART-901827364",
+            "courierPartner": "BlueDart Air Express"
+          }
+        },
+        {
+          "id": "msg_seed_02",
+          "sender": "AGENT",
+          "senderName": "BharatKart Care Support",
+          "text": "Namaste Rahul ji! We spoke with BlueDart Fort Delivery hub. Delivery executive Santosh K. has scheduled your drop for between 2:30 PM and 4:30 PM today. A 4-digit delivery security PIN has been sent via SMS.",
+          "timestamp": "2026-09-16T09:40:16.909Z"
+        }
+      ],
+      "createdAt": "2026-09-16T10:40:16.909Z",
+      "updatedAt": "2026-09-16T10:40:16.909Z"
+    },
+    {
+      "_id": "tkt_seed_02",
+      "ticketNumber": "TKT-8240",
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "userEmail": "rahul.sharma@example.com",
+      "subject": "Inquiry regarding GST input tax credit invoice format",
+      "category": "GENERAL",
+      "status": "RESOLVED",
+      "priority": "LOW",
+      "messages": [
+        {
+          "id": "msg_seed_03",
+          "sender": "USER",
+          "senderName": "Rahul Sharma",
+          "text": "Can I add my firm GSTIN on the tax invoice for B2B input tax credit claiming?",
+          "timestamp": "2026-09-13T10:40:16.909Z"
+        },
+        {
+          "id": "msg_seed_04",
+          "sender": "AGENT",
+          "senderName": "BharatKart Care Support",
+          "text": "Yes! All BharatKart invoices feature full 18% CGST/SGST/IGST breakdowns compliant with the GST Council. You can input your 15-digit GSTIN under Profile > Tax Details to reflect on all upcoming tax invoices.",
+          "timestamp": "2026-09-13T11:10:16.909Z"
+        }
+      ],
+      "createdAt": "2026-09-16T10:40:16.909Z",
+      "updatedAt": "2026-09-16T11:01:55.390Z"
+    }
+  ],
+  "addresses": [
+    {
+      "_id": "addr_rahul_01",
+      "userId": "usr_rahul_01",
+      "fullName": "Rahul Sharma",
+      "phone": "9876543210",
+      "alternatePhone": "9876543211",
+      "pincode": "400001",
+      "locality": "Fort, Colaba",
+      "addressLine": "Flat 402, Sea View Towers, Shahid Bhagat Singh Road",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "landmark": "Near Standard Chartered Bank",
+      "type": "HOME",
+      "isDefault": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "addr_rahul_02",
+      "userId": "usr_rahul_01",
+      "fullName": "Rahul Sharma",
+      "phone": "9876543210",
+      "pincode": "400051",
+      "locality": "Bandra Kurla Complex (BKC)",
+      "addressLine": "Floor 7, Maker Maxity, Commercial Block B",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "landmark": "Opposite Jio World Convention Centre",
+      "type": "WORK",
+      "isDefault": false,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    }
+  ],
+  "categories": [
+    {
+      "_id": "cat_electronics",
+      "name": "Electronics & Gadgets",
+      "slug": "electronics",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80",
+      "icon": "Smartphone",
+      "subcategories": [
+        "Headphones & Audio",
+        "Smartwatches",
+        "Mobile Accessories",
+        "Laptops & Computing",
+        "Power Banks"
+      ],
+      "itemCount": 42,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "cat_fashion",
+      "name": "Indian Ethnic & Modern Fashion",
+      "slug": "fashion",
+      "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=80",
+      "icon": "Shirt",
+      "subcategories": [
+        "Men Kurta & Sherwani",
+        "Women Sarees & Kurtis",
+        "Footwear",
+        "Watches & Jewellery"
+      ],
+      "itemCount": 56,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "cat_home",
+      "name": "Home & Kitchen",
+      "slug": "home-kitchen",
+      "image": "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&auto=format&fit=crop&q=80",
+      "icon": "Home",
+      "subcategories": [
+        "Cookware & Appliances",
+        "Brass & Copper Utensils",
+        "Home Decor & Diyas",
+        "Bedding & Linen"
+      ],
+      "itemCount": 38,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "cat_beauty",
+      "name": "Ayurvedic Beauty & Wellness",
+      "slug": "beauty-wellness",
+      "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&auto=format&fit=crop&q=80",
+      "icon": "Sparkles",
+      "subcategories": [
+        "Kumkumadi & Face Oils",
+        "Herbal Haircare",
+        "Organic Soaps",
+        "Fragrance & Attar"
+      ],
+      "itemCount": 29,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "cat_grocery",
+      "name": "Spices, Dry Fruits & Sweets",
+      "slug": "grocery-sweets",
+      "image": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
+      "icon": "ShoppingBag",
+      "subcategories": [
+        "Kashmiri Saffron & Spices",
+        "Mithai & Traditional Sweets",
+        "Organic Ghee & Honey",
+        "Premium Dry Fruits"
+      ],
+      "itemCount": 24,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    }
+  ],
+  "brands": [
+    {
+      "_id": "br_boat",
+      "name": "boAt",
+      "slug": "boat",
+      "logo": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "br_noise",
+      "name": "Noise",
+      "slug": "noise",
+      "logo": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "br_oneplus",
+      "name": "OnePlus",
+      "slug": "oneplus",
+      "logo": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "br_titan",
+      "name": "Titan",
+      "slug": "titan",
+      "logo": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "br_fabindia",
+      "name": "FabIndia",
+      "slug": "fabindia",
+      "logo": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "br_mamaearth",
+      "name": "Mamaearth",
+      "slug": "mamaearth",
+      "logo": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "br_prestige",
+      "name": "Prestige",
+      "slug": "prestige",
+      "logo": "https://images.unsplash.com/photo-1585695603586-538965004ec9?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    },
+    {
+      "_id": "br_forest",
+      "name": "Forest Essentials",
+      "slug": "forest-essentials",
+      "logo": "https://images.unsplash.com/photo-1608248597359-24706596101c?w=100&auto=format&fit=crop&q=80",
+      "isPopular": true,
+      "createdAt": "2026-09-16T10:38:18.343Z",
+      "updatedAt": "2026-09-16T10:38:18.343Z"
+    }
+  ],
+  "products": [
+    {
+      "_id": "prd_boat_nirvana",
+      "title": "boAt Nirvana Ion ANC Noise Cancelling Earbuds with 120H Playtime",
+      "slug": "boat-nirvana-ion-anc-earbuds",
+      "brand": "boAt",
+      "category": "Electronics & Gadgets",
+      "subcategory": "Headphones & Audio",
+      "description": "Experience pure musical serenity with boAt Nirvana Ion ANC featuring Crystal Bionic Sound powered by HiFi DSP, 32dB Active Noise Cancellation, and an astonishing 120 hours of total playback time. Designed for Indian audiophiles.",
+      "features": [
+        "32dB Active Noise Cancellation with Transparency Mode",
+        "Crystal Bionic Sound powered by HiFi DSP",
+        "Massive 120 Hours Total Playback (24 Hours per single charge)",
+        "Quad Mics with ENx Technology for crisp calls in Indian traffic",
+        "Beast Mode with 60ms ultra-low latency for mobile gaming",
+        "IPX4 Sweat and Splash Resistance"
+      ],
+      "specifications": {
+        "Battery Life": "Up to 120 Hours Total",
+        "Noise Cancellation": "32dB Active Noise Cancellation",
+        "Bluetooth Version": "v5.3 with Instant Wake N Pair (IWP)",
+        "Driver Size": "10mm Dual Drivers",
+        "Charging Time": "ASAP Charge (10 mins = 5 hours)",
+        "Warranty": "1 Year boAt India Warranty"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=80",
+      "mrp": 9990,
+      "price": 2499,
+      "discountPercent": 75,
+      "rating": 4.6,
+      "reviewCount": 1420,
+      "isFeatured": true,
+      "isTrending": true,
+      "isBestSeller": true,
+      "sku": "BOAT-NIRV-01",
+      "stock": 43,
+      "lowStockThreshold": 10,
+      "status": "ACTIVE",
+      "tags": [
+        "audio",
+        "earbuds",
+        "anc",
+        "boat",
+        "wireless"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "variants": [
+        {
+          "id": "v_color",
+          "name": "Color",
+          "type": "color",
+          "options": [
+            {
+              "id": "opt_black",
+              "name": "Charcoal Black",
+              "sku": "BOAT-NIRV-BLK",
+              "priceOffset": 0,
+              "stock": 25
+            },
+            {
+              "id": "opt_silver",
+              "name": "Silver Frost",
+              "sku": "BOAT-NIRV-SLV",
+              "priceOffset": 100,
+              "stock": 20
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:59:53.109Z"
+    },
+    {
+      "_id": "prd_noise_colorfit",
+      "title": "Noise ColorFit Pro 5 Max Smartwatch with 1.96\" AMOLED & BT Calling",
+      "slug": "noise-colorfit-pro-5-max",
+      "brand": "Noise",
+      "category": "Electronics & Gadgets",
+      "subcategory": "Smartwatches",
+      "description": "Elevate your daily hustle with Noise ColorFit Pro 5 Max. Flaunting a brilliant 1.96\" AMOLED display with always-on feature, functional stainless steel crown, Tru Sync Bluetooth Calling, and comprehensive 24/7 health tracking suite.",
+      "features": [
+        "1.96\" High-Definition Super AMOLED Display (410x502 resolution)",
+        "Functional Stainless Steel Rotating Crown",
+        "Tru Sync Bluetooth Calling with quick dial pad and favorite contacts",
+        "100+ Sports Modes with Auto Sports Detection",
+        "Noise Health Suite: 24x7 Heart Rate, SpO2, Sleep Monitor & Stress",
+        "IP68 Water and Dust Resistance"
+      ],
+      "specifications": {
+        "Display": "1.96\" AMOLED (500 nits brightness)",
+        "Battery": "7 Days Typical Usage, 2 Days with BT Calling",
+        "Compatibility": "Android 9.0+ and iOS 11.0+",
+        "Sensors": "Optical Heart Rate, SpO2, Accelerometer",
+        "Warranty": "1 Year Domestic Brand Warranty"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=80",
+      "mrp": 7999,
+      "price": 2999,
+      "discountPercent": 62,
+      "rating": 4.5,
+      "reviewCount": 980,
+      "isFeatured": true,
+      "isTrending": true,
+      "sku": "NOISE-CF5-MAX",
+      "stock": 32,
+      "lowStockThreshold": 5,
+      "status": "ACTIVE",
+      "tags": [
+        "smartwatch",
+        "amoled",
+        "calling",
+        "fitness",
+        "noise"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "variants": [
+        {
+          "id": "v_strap",
+          "name": "Strap Color",
+          "type": "color",
+          "options": [
+            {
+              "id": "opt_jet_black",
+              "name": "Jet Black Silicone",
+              "sku": "NOISE-CF5-BLK",
+              "priceOffset": 0,
+              "stock": 18
+            },
+            {
+              "id": "opt_vintage_brown",
+              "name": "Vintage Brown Leather",
+              "sku": "NOISE-CF5-BRN",
+              "priceOffset": 300,
+              "stock": 14
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_fabindia_kurta",
+      "title": "FabIndia Pure Chanderi Silk Embroidered Men's Kurta & Churidar Set",
+      "slug": "fabindia-chanderi-silk-kurta-set",
+      "brand": "FabIndia",
+      "category": "Indian Ethnic & Modern Fashion",
+      "subcategory": "Men Kurta & Sherwani",
+      "description": "Handcrafted with pride in Madhya Pradesh, this regal Chanderi Silk kurta features fine Zari neck embroidery, Mandarin collar, and breathable mulmul lining. Perfect for weddings, Diwali, and festive gatherings.",
+      "features": [
+        "Pure Handwoven Chanderi Silk Fabric with Cotton Mulmul Lining",
+        "Intricate Golden Zari Embroidery on Placket & Cuffs",
+        "Includes Matching Soft Off-White Cotton Churidar Pants",
+        "Side Slits with Deep Utility Pockets",
+        "Certified Authentic Handcrafted Indian Handloom"
+      ],
+      "specifications": {
+        "Fabric": "Chanderi Silk & Cotton Mulmul",
+        "Fit": "Comfort Ethnic Regular Fit",
+        "Length": "Knee Length (42 inches)",
+        "Care Instructions": "Dry Clean Only",
+        "Origin": "Handcrafted in Chanderi, India"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&auto=format&fit=crop&q=80",
+      "mrp": 6999,
+      "price": 3899,
+      "discountPercent": 44,
+      "rating": 4.8,
+      "reviewCount": 310,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "sku": "FAB-CHND-SET",
+      "stock": 22,
+      "lowStockThreshold": 4,
+      "status": "ACTIVE",
+      "tags": [
+        "fashion",
+        "ethnic",
+        "kurta",
+        "chanderi",
+        "diwali"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "variants": [
+        {
+          "id": "v_size",
+          "name": "Size",
+          "type": "size",
+          "options": [
+            {
+              "id": "opt_s_38",
+              "name": "38 (S)",
+              "sku": "FAB-KRT-38",
+              "priceOffset": 0,
+              "stock": 5
+            },
+            {
+              "id": "opt_m_40",
+              "name": "40 (M)",
+              "sku": "FAB-KRT-40",
+              "priceOffset": 0,
+              "stock": 8
+            },
+            {
+              "id": "opt_l_42",
+              "name": "42 (L)",
+              "sku": "FAB-KRT-42",
+              "priceOffset": 0,
+              "stock": 6
+            },
+            {
+              "id": "opt_xl_44",
+              "name": "44 (XL)",
+              "sku": "FAB-KRT-44",
+              "priceOffset": 100,
+              "stock": 3
+            }
+          ]
+        },
+        {
+          "id": "v_color",
+          "name": "Shade",
+          "type": "color",
+          "options": [
+            {
+              "id": "opt_royal_maroon",
+              "name": "Royal Crimson Maroon",
+              "sku": "FAB-KRT-MRN",
+              "priceOffset": 0,
+              "stock": 12
+            },
+            {
+              "id": "opt_emerald_green",
+              "name": "Deep Emerald Green",
+              "sku": "FAB-KRT-GRN",
+              "priceOffset": 0,
+              "stock": 10
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_banarasi_saree",
+      "title": "Handloom Katan Banarasi Silk Saree with Rich Kadwa Zari Pallu",
+      "slug": "handloom-katan-banarasi-silk-saree",
+      "brand": "FabIndia",
+      "category": "Indian Ethnic & Modern Fashion",
+      "subcategory": "Women Sarees & Kurtis",
+      "description": "A masterpiece from Varanasi weavers, this 100% pure Katan Silk saree features traditional Kadwa floral motifs woven with real antique gold zari. Comes with Silk Mark certification and unstitched matching blouse piece.",
+      "features": [
+        "100% Pure Katan Mulberry Silk with Silk Mark Tag",
+        "Intricate Meenakari & Gold Zari Kadwa Brocade Work",
+        "Includes 0.8m Running Blouse Piece",
+        "Heavy Designer Traditional Indian Pallu",
+        "Heirloom Quality for Weddings & Festive Receptions"
+      ],
+      "specifications": {
+        "Saree Length": "5.5 Meters + 0.8 Meter Blouse Piece",
+        "Weave Type": "Varanasi Traditional Handloom",
+        "Zari Type": "Tested Antique Gold Finished Zari",
+        "Care": "Gentle Dry Clean Only"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=80",
+      "mrp": 14999,
+      "price": 7499,
+      "discountPercent": 50,
+      "rating": 4.9,
+      "reviewCount": 420,
+      "isFeatured": true,
+      "isNewArrival": true,
+      "sku": "BAN-KAT-01",
+      "stock": 15,
+      "lowStockThreshold": 3,
+      "status": "ACTIVE",
+      "tags": [
+        "saree",
+        "banarasi",
+        "silk",
+        "handloom",
+        "wedding"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_prestige_triply",
+      "title": "Prestige Deluxe Tri-Ply Stainless Steel Pressure Cooker 5 Litre Induction Base",
+      "slug": "prestige-deluxe-triply-pressure-cooker-5l",
+      "brand": "Prestige",
+      "category": "Home & Kitchen",
+      "subcategory": "Cookware & Appliances",
+      "description": "Cook nutritious, faster Indian meals with Prestige Deluxe Tri-Ply. Inner surgical 304 food-grade stainless steel layer, middle encapsulated aluminium core for even heat distribution without hot spots, and outer induction-friendly steel.",
+      "features": [
+        "Tri-Ply Construction: Fast heat distribution, saves 20% LPG/Electricity",
+        "Food Grade SS 304 Interior: No chemical leaching or food discoloration",
+        "Precision Pressure Weight Valve & Controlled Gasket Release System",
+        "Compatible with Gas, Induction, Ceramic, and Halogen Cooktops",
+        "Ergonomic Stay-Cool Bakelite Handles"
+      ],
+      "specifications": {
+        "Capacity": "5 Litres (Ideal for 4-7 family members)",
+        "Base": "Gas & Induction Compatible Tri-Ply Base",
+        "Thickness": "2.5 mm Heavy Gauge",
+        "Warranty": "10 Years Prestige Domestic Warranty",
+        "Certification": "ISI Certified"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1585695603586-538965004ec9?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1585695603586-538965004ec9?w=500&auto=format&fit=crop&q=80",
+      "mrp": 4995,
+      "price": 3299,
+      "discountPercent": 34,
+      "rating": 4.7,
+      "reviewCount": 650,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "sku": "PRES-TRIP-5L",
+      "stock": 40,
+      "lowStockThreshold": 8,
+      "status": "ACTIVE",
+      "tags": [
+        "kitchen",
+        "pressure cooker",
+        "prestige",
+        "induction",
+        "triply"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_forest_kumkumadi",
+      "title": "Forest Essentials Ayurvedic Kumkumadi Night Serum with Kashmiri Saffron (30ml)",
+      "slug": "forest-essentials-kumkumadi-serum-30ml",
+      "brand": "Forest Essentials",
+      "category": "Ayurvedic Beauty & Wellness",
+      "subcategory": "Kumkumadi & Face Oils",
+      "description": "Formulated following ancient Ayurvedic Charaka Samhita texts, this miraculous night serum combines pure Kashmiri Saffron (Kumkuma), Padmaka, Sandalwood, and 26 precious herbs slow-infused in sesame oil. Restores youthful radiance overnight.",
+      "features": [
+        "100% Authentic Classical Ayurvedic Kumkumadi Formulation",
+        "Visibly brightens complexion and diminishes pigmentation & spots",
+        "Deep nourishment with pure Cold-Pressed Sesame & Sweet Almond Oils",
+        "Free from parabens, mineral oils, petrochemicals, and synthetic fragrance",
+        "Dermatologically tested and certified cruelty-free"
+      ],
+      "specifications": {
+        "Volume": "30 ml Glass Dropper Bottle",
+        "Key Ingredients": "Kashmiri Kesar (Saffron), Chandan (Sandalwood), Manjistha, Liquorice",
+        "Skin Type": "All Skin Types",
+        "Application": "3-4 drops nightly on cleansed face"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1608248597359-24706596101c?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1608248597359-24706596101c?w=500&auto=format&fit=crop&q=80",
+      "mrp": 3495,
+      "price": 2699,
+      "discountPercent": 23,
+      "rating": 4.8,
+      "reviewCount": 520,
+      "isFeatured": true,
+      "isTrending": true,
+      "sku": "FE-KUMK-30ML",
+      "stock": 18,
+      "lowStockThreshold": 5,
+      "status": "ACTIVE",
+      "tags": [
+        "ayurveda",
+        "serum",
+        "saffron",
+        "beauty",
+        "skincare"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_kashmiri_saffron",
+      "title": "Kongposh Certified Grade A1 Kashmiri Mongra Kesar / Saffron (5 Grams)",
+      "slug": "kashmiri-mongra-saffron-5g",
+      "brand": "Tata",
+      "category": "Spices, Dry Fruits & Sweets",
+      "subcategory": "Kashmiri Saffron & Spices",
+      "description": "Harvested by hand from the picturesque fields of Pampore, Kashmir. 100% pure, lab-tested Grade A1 Mongra Saffron stigmas with high crocin content for intense natural aroma, crimson coloring, and rich medicinal properties.",
+      "features": [
+        "GI-Tagged Certified 100% Pure Kashmiri Mongra Saffron",
+        "Zero broken filaments, pollen, or yellow stamen waste",
+        "High Crocin (240+) & Safranal level for rich golden color and aroma",
+        "Packaged in air-tight luxury acrylic container to lock freshness",
+        "FSSAI approved and batch-tested"
+      ],
+      "specifications": {
+        "Weight": "5 Grams Net",
+        "Grade": "Grade A1 Highest Export Quality (Mongra)",
+        "Shelf Life": "24 Months",
+        "Storage": "Store in a cool, dark, moisture-free environment"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
+      "mrp": 2999,
+      "price": 1899,
+      "discountPercent": 37,
+      "rating": 4.9,
+      "reviewCount": 280,
+      "isFeatured": false,
+      "isBestSeller": true,
+      "sku": "KESH-MGRA-5G",
+      "stock": 60,
+      "lowStockThreshold": 10,
+      "status": "ACTIVE",
+      "tags": [
+        "kesar",
+        "saffron",
+        "kashmir",
+        "spice",
+        "organic"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 49,
+      "returnDays": 0,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_titan_edge",
+      "title": "Titan Edge Ceramic Slimmest Quartz Analog Watch for Men with Sapphire Glass",
+      "slug": "titan-edge-ceramic-slimmest-analog-watch",
+      "brand": "Titan",
+      "category": "Indian Ethnic & Modern Fashion",
+      "subcategory": "Watches & Jewellery",
+      "description": "One of the world's slimmest ceramic watches, crafted with engineering precision in India. Measuring an incredible 4.4mm thin with scratch-resistant sapphire crystal and high-tech ceramic link bracelet.",
+      "features": [
+        "Slimmest Ceramic Timepiece: Only 4.4mm Case Thickness",
+        "Scratch-Resistant Curved Sapphire Crystal Lens",
+        "High-Tech Hypoallergenic Ceramic Case and Bracelet",
+        "Precision Swiss-Jeweled Quartz Movement made by Titan India",
+        "Push-Button Butterfly Clasp"
+      ],
+      "specifications": {
+        "Case Thickness": "4.4 mm",
+        "Case Material": "Ceramic & Titanium",
+        "Dial Color": "Anthracite Sunray Grey",
+        "Water Resistance": "30 Meters (3 ATM)",
+        "Warranty": "2 Years International Titan Warranty"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=80",
+      "mrp": 29995,
+      "price": 21995,
+      "discountPercent": 27,
+      "rating": 4.9,
+      "reviewCount": 190,
+      "isFeatured": true,
+      "isNewArrival": true,
+      "sku": "TITAN-EDGE-CER",
+      "stock": 12,
+      "lowStockThreshold": 2,
+      "status": "ACTIVE",
+      "tags": [
+        "watch",
+        "titan",
+        "luxury",
+        "ceramic",
+        "analog"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_oneplus_nord_buds",
+      "title": "OnePlus Nord Buds 3 Pro Truly Wireless Earbuds with 49dB Hybrid ANC",
+      "slug": "oneplus-nord-buds-3-pro",
+      "brand": "OnePlus",
+      "category": "Electronics & Gadgets",
+      "subcategory": "Headphones & Audio",
+      "description": "Immerse in deep bass and quiet clarity. Equipped with 12.4mm titanized diaphragm drivers, 49dB Hybrid Active Noise Cancellation, Ultra-wide frequency range, and Google Fast Pair.",
+      "features": [
+        "49dB Smart Hybrid Active Noise Cancellation",
+        "12.4mm Titanized Dynamic Drivers with BassWave 2.0",
+        "Up to 44 Hours Battery Life with Fast Charge Support",
+        "Crystal-clear calls with 3-Mic Call Noise Reduction",
+        "Dual Device Connection seamlessly switching between Phone and Laptop"
+      ],
+      "specifications": {
+        "Playtime": "Up to 44 Hours with charging case",
+        "ANC Depth": "49dB Hybrid ANC",
+        "Driver": "12.4mm Titanized Diaphragm",
+        "Bluetooth": "v5.4 with Low Latency Mode",
+        "IP Rating": "IP55 Dust and Water Resistance"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=500&auto=format&fit=crop&q=80",
+      "mrp": 3999,
+      "price": 2799,
+      "discountPercent": 30,
+      "rating": 4.7,
+      "reviewCount": 780,
+      "isFeatured": true,
+      "isTrending": true,
+      "sku": "1PLUS-NORD-B3",
+      "stock": 50,
+      "lowStockThreshold": 10,
+      "status": "ACTIVE",
+      "tags": [
+        "oneplus",
+        "earbuds",
+        "anc",
+        "nord",
+        "audio"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 0,
+      "returnDays": 7,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "prd_mamaearth_ubtan",
+      "title": "Mamaearth Ubtan Natural Face Wash with Turmeric & Saffron for Tan Removal (150ml)",
+      "slug": "mamaearth-ubtan-face-wash-150ml",
+      "brand": "Mamaearth",
+      "category": "Ayurvedic Beauty & Wellness",
+      "subcategory": "Kumkumadi & Face Oils",
+      "description": "Get that natural wedding glow every day. Infused with age-old Ayurvedic Ubtan recipe featuring Haldi, Chandan, Kesar, and walnut beads that gently exfoliate dead skin cells to reveal luminous Indian skin.",
+      "features": [
+        "Traditional Ubtan formula with Haldi and Saffron",
+        "Effectively clears stubborn sun-tan and pollution dullness",
+        "Gentle walnut beads buff away dead skin without micro-tears",
+        "Toxin-free: 0% Sulfates, Parabens, SLS, or Artificial Colors",
+        "Made Safe Certified and Dermatologically Tested"
+      ],
+      "specifications": {
+        "Volume": "150 ml Tube",
+        "Key Ingredients": "Turmeric, Saffron, Walnut Beads, Carrot Seed Oil",
+        "Skin Type": "Suitable for All Skin Types",
+        "Shelf Life": "24 Months"
+      },
+      "images": [
+        "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&auto=format&fit=crop&q=80",
+      "mrp": 399,
+      "price": 299,
+      "discountPercent": 25,
+      "rating": 4.5,
+      "reviewCount": 2100,
+      "isFeatured": false,
+      "isBestSeller": true,
+      "sku": "MAMA-UBTAN-FW",
+      "stock": 120,
+      "lowStockThreshold": 20,
+      "status": "ACTIVE",
+      "tags": [
+        "mamaearth",
+        "ubtan",
+        "facewash",
+        "turmeric",
+        "skincare"
+      ],
+      "codAvailable": true,
+      "shippingCharges": 49,
+      "returnDays": 7,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    }
+  ],
+  "banners": [
+    {
+      "_id": "ban_festive_01",
+      "title": "Maha Bachat Utsav: Up to 75% Off",
+      "subtitle": "Flat 10% Extra Cashback with UPI & Instant Bank Discounts. Free 2-Day Express Delivery across India!",
+      "ctaText": "Explore Offers",
+      "ctaLink": "/products",
+      "imageUrl": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80",
+      "badge": "LIMITED TIME FESTIVE DEALS",
+      "bgColor": "from-orange-600 to-amber-700",
+      "order": 1,
+      "isActive": true,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "ban_audio_02",
+      "title": "Sound of Bharat: Audio Mega Fest",
+      "subtitle": "Premium ANC Earbuds & Smartwatches starting at ₹999. Top Brands boAt, Noise & OnePlus.",
+      "ctaText": "Shop Electronics",
+      "ctaLink": "/products?category=Electronics%20%26%20Gadgets",
+      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1600&auto=format&fit=crop&q=80",
+      "badge": "TOP ELECTRONICS PICKS",
+      "bgColor": "from-blue-900 to-indigo-950",
+      "order": 2,
+      "isActive": true,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "ban_ethnic_03",
+      "title": "Authentic Indian Weaves & Kurtas",
+      "subtitle": "Handpicked pure Chanderi Silk, Banarasi Katan, and Handcrafted Linen sets for festive grace.",
+      "ctaText": "Discover Ethnic Wear",
+      "ctaLink": "/products?category=Indian%20Ethnic%20%26%20Modern%20Fashion",
+      "imageUrl": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&auto=format&fit=crop&q=80",
+      "badge": "HERITAGE HANDLOOM",
+      "bgColor": "from-red-900 to-rose-950",
+      "order": 3,
+      "isActive": true,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    }
+  ],
+  "coupons": [
+    {
+      "_id": "cpn_welcome100",
+      "code": "WELCOME100",
+      "description": "Flat ₹100 instant discount on your first order of ₹499 or more.",
+      "discountType": "FIXED",
+      "discountValue": 100,
+      "minOrderAmount": 499,
+      "maxDiscountAmount": 100,
+      "startDate": "2026-08-17T10:38:18.344Z",
+      "endDate": "2026-12-15T10:38:18.344Z",
+      "usageLimit": 10000,
+      "usedCount": 323,
+      "perUserLimit": 1,
+      "isActive": true,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T11:02:57.053Z"
+    },
+    {
+      "_id": "cpn_bharat15",
+      "code": "BHARAT15",
+      "description": "15% instant discount up to ₹500 on cart value above ₹999.",
+      "discountType": "PERCENTAGE",
+      "discountValue": 15,
+      "minOrderAmount": 999,
+      "maxDiscountAmount": 500,
+      "startDate": "2026-09-06T10:38:18.344Z",
+      "endDate": "2026-11-15T10:38:18.344Z",
+      "usageLimit": 5000,
+      "usedCount": 412,
+      "perUserLimit": 2,
+      "isActive": true,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "cpn_festive500",
+      "code": "FESTIVE500",
+      "description": "Save ₹500 on big orders of ₹2,499 and above.",
+      "discountType": "FIXED",
+      "discountValue": 500,
+      "minOrderAmount": 2499,
+      "maxDiscountAmount": 500,
+      "startDate": "2026-09-11T10:38:18.344Z",
+      "endDate": "2026-10-31T10:38:18.344Z",
+      "usageLimit": 2000,
+      "usedCount": 154,
+      "perUserLimit": 1,
+      "isActive": true,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    }
+  ],
+  "flashSales": [
+    {
+      "_id": "fs_midnight_madness",
+      "title": "Flash Deal Dhamaka",
+      "subtitle": "Lightning deals with guaranteed lowest prices in India! Hurry, limited stock remaining.",
+      "discountPercent": 50,
+      "startTime": "2026-09-16T04:38:18.344Z",
+      "endTime": "2026-09-17T04:38:18.344Z",
+      "productIds": [
+        "prd_boat_nirvana",
+        "prd_noise_colorfit",
+        "prd_forest_kumkumadi"
+      ],
+      "bannerImage": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200&auto=format&fit=crop&q=80",
+      "isActive": true,
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": "rev_01",
+      "productId": "prd_boat_nirvana",
+      "userId": "usr_priya_02",
+      "userName": "Priya Patel",
+      "userAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "title": "Best ANC earbuds under ₹3,000 in India!",
+      "comment": "The noise cancellation completely blocks Mumbai local train and traffic noise on my daily commute. Battery life is unbelievable – I have not charged the case in 2 weeks. Highly recommended!",
+      "verifiedPurchase": true,
+      "helpfulVotes": 48,
+      "status": "APPROVED",
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "rev_02",
+      "productId": "prd_boat_nirvana",
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "userAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "title": "Amazing punchy bass and crystal clear calling",
+      "comment": "Audio clarity is top notch for Hindi, Punjabi, and Western tunes. Quad mics work flawlessly on Google Meet calls even with ceiling fan on high speed.",
+      "verifiedPurchase": true,
+      "helpfulVotes": 32,
+      "status": "APPROVED",
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "rev_03",
+      "productId": "prd_fabindia_kurta",
+      "userId": "usr_priya_02",
+      "userName": "Priya Patel",
+      "userAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "title": "Gifted this to my brother for Diwali. Royal look!",
+      "comment": "The Chanderi silk has a very subtle, graceful sheen without being overly loud. The inner cotton lining ensures zero itching. Fits true to size.",
+      "verifiedPurchase": true,
+      "helpfulVotes": 19,
+      "status": "APPROVED",
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "_id": "rev_04",
+      "productId": "prd_prestige_triply",
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "userAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "rating": 4,
+      "title": "Solid heavy stainless steel build",
+      "comment": "Dal and Biryani cook much faster compared to aluminium cookers, and cleaning is effortless. No burnt spots on the base.",
+      "verifiedPurchase": true,
+      "helpfulVotes": 15,
+      "status": "APPROVED",
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    }
+  ],
+  "orders": [
+    {
+      "_id": "ord_sample_984712",
+      "orderNumber": "BK-2026-984712",
+      "userId": "usr_rahul_01",
+      "customerName": "Rahul Sharma",
+      "customerEmail": "rahul.sharma@example.com",
+      "customerPhone": "+91 98765 43210",
+      "shippingAddress": {
+        "_id": "addr_rahul_01",
+        "userId": "usr_rahul_01",
+        "fullName": "Rahul Sharma",
+        "phone": "9876543210",
+        "alternatePhone": "9876543211",
+        "pincode": "400001",
+        "locality": "Fort, Colaba",
+        "addressLine": "Flat 402, Sea View Towers, Shahid Bhagat Singh Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "landmark": "Near Standard Chartered Bank",
+        "type": "HOME",
+        "isDefault": true,
+        "createdAt": "2026-09-16T10:38:18.343Z"
+      },
+      "items": [
+        {
+          "productId": "prd_boat_nirvana",
+          "title": "boAt Nirvana Ion ANC Noise Cancelling Earbuds",
+          "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=80",
+          "sku": "BOAT-NIRV-01",
+          "price": 2499,
+          "mrp": 9990,
+          "quantity": 1,
+          "variantDetails": "Color: Charcoal Black"
+        }
+      ],
+      "subtotal": 2499,
+      "discount": 0,
+      "couponCode": "WELCOME100",
+      "couponDiscount": 100,
+      "shippingCharge": 0,
+      "taxAmount": 431.82,
+      "totalAmount": 2399,
+      "paymentMethod": "UPI_QR",
+      "paymentStatus": "PAID",
+      "paymentId": "pay_upi_bharat_98231",
+      "orderStatus": "OUT_FOR_DELIVERY",
+      "estimatedDeliveryDate": "2026-09-17",
+      "courierPartner": "BlueDart Express India",
+      "trackingNumber": "BD-IN-9812457812",
+      "invoiceNumber": "INV-BK-2026-0041",
+      "timeline": [
+        {
+          "status": "CONFIRMED",
+          "title": "Order Confirmed & Payment Verified",
+          "description": "Payment of ₹2,399 verified via UPI (GPay/PhonePe). Order passed to warehouse.",
+          "timestamp": "2026-09-14T10:38:18.344Z",
+          "completed": true
+        },
+        {
+          "status": "PACKED",
+          "title": "Packed & Quality Checked",
+          "description": "Item carefully inspected and sealed in BharatKart tamper-evident packaging at Bhiwandi Fulfillment Center.",
+          "timestamp": "2026-09-14T22:38:18.344Z",
+          "completed": true
+        },
+        {
+          "status": "SHIPPED",
+          "title": "Shipped with BlueDart Express",
+          "description": "Dispatched via Air Express. Waybill tracking #BD-IN-9812457812 assigned.",
+          "timestamp": "2026-09-15T10:38:18.344Z",
+          "location": "Mumbai Hub Sort Facility",
+          "completed": true
+        },
+        {
+          "status": "OUT_FOR_DELIVERY",
+          "title": "Out for Delivery",
+          "description": "BlueDart delivery executive (Santosh K. +91 98332 11223) is on the way with your package.",
+          "timestamp": "2026-09-16T07:38:18.344Z",
+          "location": "Fort Delivery Hub, Mumbai",
+          "completed": true
+        },
+        {
+          "status": "DELIVERED",
+          "title": "Expected Delivery",
+          "description": "Arriving today before 6:00 PM.",
+          "timestamp": "2026-09-16T14:38:18.344Z",
+          "completed": false
+        }
+      ],
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "orderNumber": "BK-2026-914734",
+      "userId": "usr_rahul_01",
+      "customerName": "Rahul Sharma",
+      "customerEmail": "rahul.sharma@example.com",
+      "customerPhone": "9876543210",
+      "shippingAddress": {
+        "_id": "addr_rahul_01",
+        "userId": "usr_rahul_01",
+        "fullName": "Rahul Sharma",
+        "phone": "9876543210",
+        "alternatePhone": "9876543211",
+        "pincode": "400001",
+        "locality": "Fort, Colaba",
+        "addressLine": "Flat 402, Sea View Towers, Shahid Bhagat Singh Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "landmark": "Near Standard Chartered Bank",
+        "type": "HOME",
+        "isDefault": true,
+        "createdAt": "2026-09-16T10:38:18.343Z",
+        "updatedAt": "2026-09-16T10:38:18.343Z"
+      },
+      "items": [
+        {
+          "productId": "prd_boat_nirvana",
+          "title": "boAt Nirvana Ion ANC Noise Cancelling Earbuds with 120H Playtime",
+          "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=80",
+          "sku": "BOAT-NIRV-01",
+          "price": 2499,
+          "mrp": 9990,
+          "quantity": 2
+        }
+      ],
+      "subtotal": 4998,
+      "discount": 14982,
+      "couponDiscount": 0,
+      "shippingCharge": 0,
+      "taxAmount": 762,
+      "totalAmount": 4998,
+      "paymentMethod": "UPI_QR",
+      "paymentStatus": "PAID",
+      "orderStatus": "PROCESSING",
+      "timeline": [
+        {
+          "status": "PAYMENT_PENDING",
+          "title": "Order Received - Awaiting Payment",
+          "description": "Order placed. Please complete payment of ₹4,998 to proceed with shipping.",
+          "timestamp": "2026-09-16T10:59:47.110Z",
+          "completed": true
+        },
+        {
+          "status": "CONFIRMED",
+          "title": "Payment Received & Order Confirmed",
+          "description": "Payment of ₹4,998 verified successfully via UPI_QR. Reference: UPI-TXN-1789556393101",
+          "timestamp": "2026-09-16T10:59:53.108Z",
+          "completed": true
+        },
+        {
+          "status": "PROCESSING",
+          "title": "Sent to Warehouse for Packing",
+          "description": "Order details transmitted to BharatKart regional logistics fulfillment center.",
+          "timestamp": "2026-09-16T10:59:53.108Z",
+          "completed": true
+        }
+      ],
+      "estimatedDeliveryDate": "2026-09-17",
+      "courierPartner": "BlueDart Air Express",
+      "trackingNumber": "TRK-BK-MU3ZO1LY",
+      "invoiceNumber": "INV-BK-2026-7827",
+      "_id": "ord_1789556387110_yjtaba",
+      "createdAt": "2026-09-16T10:59:47.110Z",
+      "updatedAt": "2026-09-16T10:59:53.109Z",
+      "paymentId": "UPI-TXN-1789556393101"
+    },
+    {
+      "orderNumber": "BK-2026-140100",
+      "userId": "usr_rahul_01",
+      "customerName": "Rahul Sharma",
+      "customerEmail": "rahul.sharma@example.com",
+      "customerPhone": "9876543210",
+      "shippingAddress": {
+        "_id": "addr_rahul_01",
+        "userId": "usr_rahul_01",
+        "fullName": "Rahul Sharma",
+        "phone": "9876543210",
+        "alternatePhone": "9876543211",
+        "pincode": "400001",
+        "locality": "Fort, Colaba",
+        "addressLine": "Flat 402, Sea View Towers, Shahid Bhagat Singh Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "landmark": "Near Standard Chartered Bank",
+        "type": "HOME",
+        "isDefault": true,
+        "createdAt": "2026-09-16T10:38:18.343Z",
+        "updatedAt": "2026-09-16T10:38:18.343Z"
+      },
+      "items": [
+        {
+          "productId": "prd_banarasi_saree",
+          "title": "Handloom Katan Banarasi Silk Saree with Rich Kadwa Zari Pallu",
+          "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=80",
+          "sku": "BAN-KAT-01",
+          "price": 7499,
+          "mrp": 14999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 7499,
+      "discount": 7500,
+      "couponCode": "WELCOME100",
+      "couponDiscount": 100,
+      "shippingCharge": 0,
+      "taxAmount": 1129,
+      "totalAmount": 7399,
+      "paymentMethod": "RAZORPAY_SIMULATED",
+      "paymentStatus": "PENDING",
+      "orderStatus": "PAYMENT_PENDING",
+      "timeline": [
+        {
+          "status": "PAYMENT_PENDING",
+          "title": "Order Received - Awaiting Payment",
+          "description": "Order placed. Please complete payment of ₹7,399 to proceed with shipping.",
+          "timestamp": "2026-09-16T11:02:44.921Z",
+          "completed": true
+        }
+      ],
+      "estimatedDeliveryDate": "2026-09-17",
+      "courierPartner": "BlueDart Air Express",
+      "trackingNumber": "TRK-BK-MU3ZRUT5",
+      "invoiceNumber": "INV-BK-2026-8381",
+      "_id": "ord_1789556564921_0xiynj",
+      "createdAt": "2026-09-16T11:02:44.921Z",
+      "updatedAt": "2026-09-16T11:02:44.921Z"
+    },
+    {
+      "orderNumber": "BK-2026-396649",
+      "userId": "usr_rahul_01",
+      "customerName": "Rahul Sharma",
+      "customerEmail": "rahul.sharma@example.com",
+      "customerPhone": "9876543210",
+      "shippingAddress": {
+        "_id": "addr_rahul_01",
+        "userId": "usr_rahul_01",
+        "fullName": "Rahul Sharma",
+        "phone": "9876543210",
+        "alternatePhone": "9876543211",
+        "pincode": "400001",
+        "locality": "Fort, Colaba",
+        "addressLine": "Flat 402, Sea View Towers, Shahid Bhagat Singh Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "landmark": "Near Standard Chartered Bank",
+        "type": "HOME",
+        "isDefault": true,
+        "createdAt": "2026-09-16T10:38:18.343Z",
+        "updatedAt": "2026-09-16T10:38:18.343Z"
+      },
+      "items": [
+        {
+          "productId": "prd_banarasi_saree",
+          "title": "Handloom Katan Banarasi Silk Saree with Rich Kadwa Zari Pallu",
+          "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=80",
+          "sku": "BAN-KAT-01",
+          "price": 7499,
+          "mrp": 14999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 7499,
+      "discount": 7500,
+      "couponCode": "WELCOME100",
+      "couponDiscount": 100,
+      "shippingCharge": 0,
+      "taxAmount": 1129,
+      "totalAmount": 7399,
+      "paymentMethod": "NET_BANKING",
+      "paymentStatus": "PENDING",
+      "orderStatus": "PAYMENT_PENDING",
+      "timeline": [
+        {
+          "status": "PAYMENT_PENDING",
+          "title": "Order Received - Awaiting Payment",
+          "description": "Order placed. Please complete payment of ₹7,399 to proceed with shipping.",
+          "timestamp": "2026-09-16T11:02:50.864Z",
+          "completed": true
+        }
+      ],
+      "estimatedDeliveryDate": "2026-09-17",
+      "courierPartner": "BlueDart Air Express",
+      "trackingNumber": "TRK-BK-MU3ZRZE8",
+      "invoiceNumber": "INV-BK-2026-8554",
+      "_id": "ord_1789556570864_19wtm6",
+      "createdAt": "2026-09-16T11:02:50.864Z",
+      "updatedAt": "2026-09-16T11:02:50.864Z"
+    },
+    {
+      "orderNumber": "BK-2026-108495",
+      "userId": "usr_rahul_01",
+      "customerName": "Rahul Sharma",
+      "customerEmail": "rahul.sharma@example.com",
+      "customerPhone": "9876543210",
+      "shippingAddress": {
+        "_id": "addr_rahul_01",
+        "userId": "usr_rahul_01",
+        "fullName": "Rahul Sharma",
+        "phone": "9876543210",
+        "alternatePhone": "9876543211",
+        "pincode": "400001",
+        "locality": "Fort, Colaba",
+        "addressLine": "Flat 402, Sea View Towers, Shahid Bhagat Singh Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "landmark": "Near Standard Chartered Bank",
+        "type": "HOME",
+        "isDefault": true,
+        "createdAt": "2026-09-16T10:38:18.343Z",
+        "updatedAt": "2026-09-16T10:38:18.343Z"
+      },
+      "items": [
+        {
+          "productId": "prd_banarasi_saree",
+          "title": "Handloom Katan Banarasi Silk Saree with Rich Kadwa Zari Pallu",
+          "image": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=80",
+          "sku": "BAN-KAT-01",
+          "price": 7499,
+          "mrp": 14999,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 7499,
+      "discount": 7500,
+      "couponCode": "WELCOME100",
+      "couponDiscount": 100,
+      "shippingCharge": 0,
+      "taxAmount": 1129,
+      "totalAmount": 7399,
+      "paymentMethod": "UPI_QR",
+      "paymentStatus": "PENDING",
+      "orderStatus": "PAYMENT_PENDING",
+      "timeline": [
+        {
+          "status": "PAYMENT_PENDING",
+          "title": "Order Received - Awaiting Payment",
+          "description": "Order placed. Please complete payment of ₹7,399 to proceed with shipping.",
+          "timestamp": "2026-09-16T11:02:57.053Z",
+          "completed": true
+        }
+      ],
+      "estimatedDeliveryDate": "2026-09-17",
+      "courierPartner": "BlueDart Air Express",
+      "trackingNumber": "TRK-BK-MU3ZS465",
+      "invoiceNumber": "INV-BK-2026-3194",
+      "_id": "ord_1789556577053_wx9q0l",
+      "createdAt": "2026-09-16T11:02:57.053Z",
+      "updatedAt": "2026-09-16T11:02:57.053Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "_id": "log_seed_init",
+      "userId": "usr_super_01",
+      "userName": "Vikramaditya Rao",
+      "action": "SYSTEM_BOOTSTRAP",
+      "entity": "PLATFORM",
+      "entityId": "bharatkart_core",
+      "details": "BharatKart initial product catalog, Indian payment gateway config, and inventory seeded successfully.",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:38:18.344Z",
+      "updatedAt": "2026-09-16T10:38:18.344Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:38:25.147Z",
+      "_id": "aud_1789555105147_ug85b6",
+      "updatedAt": "2026-09-16T10:38:25.147Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:38:25.177Z",
+      "_id": "aud_1789555105177_pcvxey",
+      "updatedAt": "2026-09-16T10:38:25.177Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:38:44.447Z",
+      "_id": "aud_1789555124447_yevm9r",
+      "updatedAt": "2026-09-16T10:38:44.447Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:38:44.479Z",
+      "_id": "aud_1789555124479_x1ro6f",
+      "updatedAt": "2026-09-16T10:38:44.479Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "ORDER_CREATE",
+      "entity": "ORDER",
+      "entityId": "ord_1789556387110_yjtaba",
+      "details": "Order BK-2026-914734 created for ₹4998 via UPI_QR",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:59:47.113Z",
+      "_id": "aud_1789556387113_h65qqh",
+      "updatedAt": "2026-09-16T10:59:47.113Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "PAYMENT_INITIATE",
+      "entity": "PAYMENT",
+      "entityId": "pay_1789556387122_xndksf",
+      "details": "Payment initialized for order BK-2026-914734 via UPI_QR",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:59:47.259Z",
+      "_id": "aud_1789556387259_9nz5yk",
+      "updatedAt": "2026-09-16T10:59:47.259Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "PAYMENT_INITIATE",
+      "entity": "PAYMENT",
+      "entityId": "pay_1789556387250_vyt59e",
+      "details": "Payment initialized for order BK-2026-914734 via UPI_QR",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:59:47.259Z",
+      "_id": "aud_1789556387259_kd4eri",
+      "updatedAt": "2026-09-16T10:59:47.259Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "PAYMENT_VERIFY_SUCCESS",
+      "entity": "PAYMENT",
+      "entityId": "pay_1789556387250_vyt59e",
+      "details": "Payment verified successfully for order ord_1789556387110_yjtaba",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T10:59:53.109Z",
+      "_id": "aud_1789556393109_rn06qg",
+      "updatedAt": "2026-09-16T10:59:53.109Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_admin_01",
+      "details": "User logged in: admin@bharatkart.in [ADMIN]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:01:32.409Z",
+      "_id": "aud_1789556492409_7sx9bp",
+      "updatedAt": "2026-09-16T11:01:32.409Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:01:38.338Z",
+      "_id": "aud_1789556498338_ap0qmy",
+      "updatedAt": "2026-09-16T11:01:38.338Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "ORDER_CREATE",
+      "entity": "ORDER",
+      "entityId": "ord_1789556564921_0xiynj",
+      "details": "Order BK-2026-140100 created for ₹7399 via RAZORPAY_SIMULATED",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:02:44.922Z",
+      "_id": "aud_1789556564922_9d9mlf",
+      "updatedAt": "2026-09-16T11:02:44.922Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "PAYMENT_VERIFY_FAIL",
+      "entity": "PAYMENT",
+      "entityId": "PAY-GATEWAY-1789556564923",
+      "details": "Payment verification failed: Payment record not found.",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:02:44.926Z",
+      "_id": "aud_1789556564926_89g9e4",
+      "updatedAt": "2026-09-16T11:02:44.926Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "ORDER_CREATE",
+      "entity": "ORDER",
+      "entityId": "ord_1789556570864_19wtm6",
+      "details": "Order BK-2026-396649 created for ₹7399 via NET_BANKING",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:02:50.864Z",
+      "_id": "aud_1789556570864_qxii1w",
+      "updatedAt": "2026-09-16T11:02:50.864Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "PAYMENT_VERIFY_FAIL",
+      "entity": "PAYMENT",
+      "entityId": "PAY-GATEWAY-1789556570870",
+      "details": "Payment verification failed: Payment record not found.",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:02:50.872Z",
+      "_id": "aud_1789556570872_czoqau",
+      "updatedAt": "2026-09-16T11:02:50.872Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "ORDER_CREATE",
+      "entity": "ORDER",
+      "entityId": "ord_1789556577053_wx9q0l",
+      "details": "Order BK-2026-108495 created for ₹7399 via UPI_QR",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:02:57.054Z",
+      "_id": "aud_1789556577054_yydyvw",
+      "updatedAt": "2026-09-16T11:02:57.054Z"
+    },
+    {
+      "userId": "usr_rahul_01",
+      "userName": "Rahul Sharma",
+      "action": "PAYMENT_INITIATE",
+      "entity": "PAYMENT",
+      "entityId": "pay_1789556577070_cfpukl",
+      "details": "Payment initialized for order BK-2026-108495 via UPI_QR",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-16T11:02:57.095Z",
+      "_id": "aud_1789556577095_j36xp0",
+      "updatedAt": "2026-09-16T11:02:57.095Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-22T07:20:44.162Z",
+      "_id": "aud_1790061644162_ov2wz1",
+      "updatedAt": "2026-09-22T07:20:44.162Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-22T07:20:44.192Z",
+      "_id": "aud_1790061644192_z12pxr",
+      "updatedAt": "2026-09-22T07:20:44.192Z"
+    }
+  ],
+  "carts": [
+    {
+      "_id": "cart_1789555105092",
+      "sessionId": "sess_zj6kawkn3",
+      "items": [],
+      "subtotal": 0,
+      "discount": 0,
+      "couponDiscount": 0,
+      "shipping": 0,
+      "tax": 0,
+      "total": 0,
+      "createdAt": "2026-09-16T10:38:25.092Z",
+      "updatedAt": "2026-09-22T07:28:02.752Z"
+    },
+    {
+      "_id": "cart_1789555105182",
+      "userId": "usr_rahul_01",
+      "sessionId": "usr_rahul_01",
+      "items": [],
+      "subtotal": 0,
+      "discount": 0,
+      "couponDiscount": 0,
+      "shipping": 0,
+      "tax": 0,
+      "total": 0,
+      "createdAt": "2026-09-16T10:38:25.182Z",
+      "updatedAt": "2026-09-22T07:26:25.581Z",
+      "couponCode": null
+    },
+    {
+      "_id": "cart_1789556492421",
+      "userId": "usr_admin_01",
+      "sessionId": "usr_admin_01",
+      "items": [],
+      "subtotal": 0,
+      "discount": 0,
+      "couponDiscount": 0,
+      "shipping": 0,
+      "tax": 0,
+      "total": 0,
+      "createdAt": "2026-09-16T11:01:32.421Z",
+      "updatedAt": "2026-09-16T11:01:32.421Z"
+    }
+  ],
+  "wishlists": [],
+  "payments": [
+    {
+      "_id": "pay_1789556387122_xndksf",
+      "orderId": "ord_1789556387110_yjtaba",
+      "orderNumber": "BK-2026-914734",
+      "paymentId": "pay_1789556387122_xndksf",
+      "amount": 4998,
+      "currency": "INR",
+      "method": "UPI_QR",
+      "status": "PENDING",
+      "razorpayOrderId": "order_rzp_MU3ZO1MA",
+      "razorpayPaymentId": null,
+      "razorpaySignature": null,
+      "upiId": "bharatkart@icici",
+      "upiDeepLink": "upi://pay?pa=bharatkart%40icici&pn=BharatKart%20India&am=4998.00&cu=INR&tn=Order%20BK-2026-914734&tr=pay_1789556387122_xndksf",
+      "qrCodeUrl": "data:image/png;base64,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",
+      "webhookProcessed": false,
+      "refunds": [],
+      "createdAt": "2026-09-16T10:59:47.259Z",
+      "updatedAt": "2026-09-16T10:59:47.259Z"
+    },
+    {
+      "_id": "pay_1789556387250_vyt59e",
+      "orderId": "ord_1789556387110_yjtaba",
+      "orderNumber": "BK-2026-914734",
+      "paymentId": "pay_1789556387250_vyt59e",
+      "amount": 4998,
+      "currency": "INR",
+      "method": "UPI_QR",
+      "status": "PAID",
+      "razorpayOrderId": "order_rzp_MU3ZO1PU",
+      "razorpayPaymentId": "UPI-TXN-1789556393101",
+      "razorpaySignature": null,
+      "upiId": "bharatkart@icici",
+      "upiDeepLink": "upi://pay?pa=bharatkart%40icici&pn=BharatKart%20India&am=4998.00&cu=INR&tn=Order%20BK-2026-914734&tr=pay_1789556387250_vyt59e",
+      "qrCodeUrl": "data:image/png;base64,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",
+      "webhookProcessed": false,
+      "refunds": [],
+      "createdAt": "2026-09-16T10:59:47.259Z",
+      "updatedAt": "2026-09-16T10:59:53.107Z",
+      "verifiedAt": "2026-09-16T10:59:53.107Z"
+    },
+    {
+      "_id": "pay_1789556577070_cfpukl",
+      "orderId": "ord_1789556577053_wx9q0l",
+      "orderNumber": "BK-2026-108495",
+      "paymentId": "pay_1789556577070_cfpukl",
+      "amount": 7399,
+      "currency": "INR",
+      "method": "UPI_QR",
+      "status": "PENDING",
+      "razorpayOrderId": "order_rzp_MU3ZS46M",
+      "razorpayPaymentId": null,
+      "razorpaySignature": null,
+      "upiId": "bharatkart@icici",
+      "upiDeepLink": "upi://pay?pa=bharatkart%40icici&pn=BharatKart%20India&am=7399.00&cu=INR&tn=Order%20BK-2026-108495&tr=pay_1789556577070_cfpukl",
+      "qrCodeUrl": "data:image/png;base64,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",
+      "webhookProcessed": false,
+      "refunds": [],
+      "createdAt": "2026-09-16T11:02:57.095Z",
+      "updatedAt": "2026-09-16T11:02:57.095Z"
+    }
+  ]
+}

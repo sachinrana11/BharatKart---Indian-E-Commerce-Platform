@@ -169,8 +169,8 @@ router.post('/', requireAuth, async (req: AuthenticatedRequest, res) => {
   }
 });
 
-// GET /api/orders/my-orders - User past orders
-router.get('/my-orders', requireAuth, async (req: AuthenticatedRequest, res) => {
+// GET /api/orders, /api/orders/my-orders, /api/orders/user/my-orders - User past orders
+router.get(['/', '/my-orders', '/user/my-orders'], requireAuth, async (req: AuthenticatedRequest, res) => {
   try {
     const ordersCol = db.collection('orders');
     const orders = await ordersCol.find(
