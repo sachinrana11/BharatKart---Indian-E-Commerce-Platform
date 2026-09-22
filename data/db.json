@@ -1682,6 +1682,30 @@
       "createdAt": "2026-09-22T07:20:44.192Z",
       "_id": "aud_1790061644192_z12pxr",
       "updatedAt": "2026-09-22T07:20:44.192Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-22T07:52:38.260Z",
+      "_id": "aud_1790063558260_wajmqy",
+      "updatedAt": "2026-09-22T07:52:38.260Z"
+    },
+    {
+      "userId": "ANONYMOUS",
+      "userName": "Guest / System",
+      "action": "USER_LOGIN",
+      "entity": "USER",
+      "entityId": "usr_rahul_01",
+      "details": "User logged in: rahul.sharma@example.com [CUSTOMER]",
+      "ipAddress": "127.0.0.1",
+      "createdAt": "2026-09-22T07:52:38.277Z",
+      "_id": "aud_1790063558277_gqzk3s",
+      "updatedAt": "2026-09-22T07:52:38.277Z"
     }
   ],
   "carts": [
@@ -1696,7 +1720,7 @@
       "tax": 0,
       "total": 0,
       "createdAt": "2026-09-16T10:38:25.092Z",
-      "updatedAt": "2026-09-22T07:39:17.103Z"
+      "updatedAt": "2026-09-22T07:52:38.280Z"
     },
     {
       "_id": "cart_1789555105182",
@@ -1710,7 +1734,7 @@
       "tax": 0,
       "total": 0,
       "createdAt": "2026-09-16T10:38:25.182Z",
-      "updatedAt": "2026-09-22T07:26:25.581Z",
+      "updatedAt": "2026-09-22T07:55:31.690Z",
       "couponCode": null
     },
     {
