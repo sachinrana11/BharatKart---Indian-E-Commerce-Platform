@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import 'dotenv/config';
 import { createServer as createViteServer } from 'vite';
 import { seedDatabase } from './server/seedData.js';
 import { authenticateToken } from './server/auth.js';
